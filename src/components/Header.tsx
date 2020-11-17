@@ -1,11 +1,32 @@
 import React from "react";
 import styled from "styled-components";
+import NavButton from "./NavButton";
+import Logo from "../assets/Logo";
 
 const StyledHeader = styled.header`
-  width: 100%;
+  width: 70%;
   height: calc(30vh - 50px);
+
+  display: flex;
+  align-items: center;
+  justify-content: space-around;
+
+  @media screen and (max-width: 768px) {
+    width: 100%;
+    display: grid;
+    align-items: center;
+    justify-items: center;
+    grid-template-columns: 1fr 1fr;
+    grid-template-rows: 2fr 1fr;
+  }
 `;
 
-const Header: React.FC = () => <StyledHeader>header</StyledHeader>;
+const Header = () => (
+  <StyledHeader>
+    <NavButton selected={true}>Practice</NavButton>
+    <Logo />
+    <NavButton selected={false}>Race</NavButton>
+  </StyledHeader>
+);
 
 export default Header;

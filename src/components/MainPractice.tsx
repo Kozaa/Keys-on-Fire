@@ -7,7 +7,7 @@ const StyledMainPractice = styled.main`
   background-color: red;
 `;
 
-const MainPractice: React.FC = () => {
+const MainPractice = () => {
   return <StyledMainPractice>mainPractice</StyledMainPractice>;
 };
 

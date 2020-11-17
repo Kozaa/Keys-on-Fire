@@ -10,11 +10,10 @@ const StyledFooter = styled.footer`
   justify-content: center;
 
   font-family: ${({ theme }) => theme.font.secondary};
+  font-size: 0.7em;
   background-color: black;
 `;
 
-const Footer: React.FC = () => (
-  <StyledFooter>Keys on Fire | copyright 2020</StyledFooter>
-);
+const Footer = () => <StyledFooter>Keys on Fire | copyright 2020</StyledFooter>;
 
 export default Footer;
