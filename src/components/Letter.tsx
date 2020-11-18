@@ -9,6 +9,8 @@ interface LetterProps {
 
 const StyledLetter = styled.span<LetterProps>`
   position: relative;
+  color: ${({ current, i, theme }) =>
+    current > i - 1 ? theme.colors.grey : "white"};
 
   :after {
     content: "";
