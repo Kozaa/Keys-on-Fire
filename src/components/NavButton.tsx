@@ -18,14 +18,13 @@ const StyledNavButton = styled.button`
   }
 `;
 
-const StyledText = styled.span`
-  border-bottom: ${({
-    theme,
-    selected,
-  }: {
-    theme: DefaultTheme;
-    selected: boolean;
-  }) => (selected ? `${theme.colors.red} 2px solid` : "none")};
+interface TextProps {
+  selected: boolean;
+}
+
+const StyledText = styled.span<TextProps>`
+  border-bottom: ${({ theme, selected }) =>
+    selected ? `${theme.colors.red} 2px solid` : "none"};
 `;
 
 interface Props {

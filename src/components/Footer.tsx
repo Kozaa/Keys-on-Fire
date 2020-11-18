@@ -10,7 +10,7 @@ const StyledFooter = styled.footer`
   justify-content: center;
 
   font-family: ${({ theme }) => theme.font.secondary};
-  font-size: 0.7em;
+  font-size: 0.6em;
   background-color: black;
 `;
 
