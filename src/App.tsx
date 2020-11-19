@@ -46,17 +46,19 @@ const GlobalStyle = createGlobalStyle`
   }
 `;
 
-const App = () => (
-  <>
-    <ThemeProvider theme={Theme}>
-      <GlobalStyle />
-      <Provider store={store}>
-        <Header />
-        <MainPractice />
-        <Footer />
-      </Provider>
-    </ThemeProvider>
-  </>
-);
+const App = () => {
+  return (
+    <>
+      <ThemeProvider theme={Theme}>
+        <GlobalStyle />
+        <Provider store={store}>
+          <Header />
+          <MainPractice />
+          <Footer />
+        </Provider>
+      </ThemeProvider>
+    </>
+  );
+};
 
 export default App;

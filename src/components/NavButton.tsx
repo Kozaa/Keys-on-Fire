@@ -1,6 +1,5 @@
 import React from "react";
 import styled from "styled-components";
-import { DefaultTheme } from "styled-components";
 
 const StyledNavButton = styled.button`
   width: 20%;

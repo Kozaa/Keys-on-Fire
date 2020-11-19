@@ -1,5 +1,7 @@
-import React from "react";
+import React, { useEffect } from "react";
 import styled from "styled-components";
+import { useDispatch } from "react-redux";
+import getData from "../utils/getData";
 import TextDisplay from "./TextDisplay";
 
 const StyledMainPractice = styled.main`
@@ -10,6 +12,10 @@ const StyledMainPractice = styled.main`
 `;
 
 const MainPractice = () => {
+  const dispatch = useDispatch();
+
+  useEffect(() => getData(dispatch), []);
+
   return (
     <StyledMainPractice>
       <TextDisplay />
