@@ -1,5 +1,5 @@
 import { createStore, compose } from "redux";
-import reducers from "./reducers";
+import { RootReducer } from "./reducers";
 
 declare global {
   interface Window {
@@ -8,6 +8,6 @@ declare global {
 }
 
 const composeEnhancers = window.__REDUX_DEVTOOLS_EXTENSION_COMPOSE__ || compose;
-const store = createStore(reducers, composeEnhancers());
+export const store = createStore(RootReducer, composeEnhancers());
 
-export default store;
+export type AppState = ReturnType<typeof RootReducer>;

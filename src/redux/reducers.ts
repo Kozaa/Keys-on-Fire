@@ -1,45 +1,68 @@
 import * as actions from "./actionTypes";
 import { combineReducers } from "redux";
 
-type LetterAction = {
-  type: typeof actions.GO_FORWARDS | typeof actions.GO_BACKWARDS;
+type WordAction = {
+  type: typeof actions.NEXT_WORD | typeof actions.PREVIOUS_WORD;
 };
 
-const currentLetter = (state = 0, action: LetterAction) => {
+const currentWordReducer = (state = 0, action: WordAction): number => {
   switch (action.type) {
-    case actions.GO_FORWARDS:
+    case actions.NEXT_WORD:
       return state + 1;
-    case actions.GO_BACKWARDS:
+    case actions.PREVIOUS_WORD:
       return state - 1;
     default:
       return state;
   }
 };
 
-type TextAction = {
+type LetterAction = {
+  type:
+    | typeof actions.NEXT_LETTER
+    | typeof actions.PREVIOUS_LETTER
+    | typeof actions.NEXT_WORD;
+};
+
+const currentLetterReducer = (state = 0, action: LetterAction): number => {
+  switch (action.type) {
+    case actions.NEXT_LETTER:
+      return state + 1;
+    case actions.PREVIOUS_LETTER:
+      return state - 1;
+    case actions.NEXT_WORD:
+      return 0;
+    default:
+      return state;
+  }
+};
+
+type WordsAction = {
   type: typeof actions.TEXT_LOAD_FAILURE | typeof actions.TEXT_LOAD_SUCCESS;
   payload: {
     words?: string[];
-    err?: any;
+    err?: {
+      message: string;
+    };
   };
 };
 
-const currentWords = (state = [], action: TextAction) => {
+const wordsReducer = (state: string[] = [], action: WordsAction): string[] => {
   switch (action.type) {
     case actions.TEXT_LOAD_SUCCESS:
-      return action.payload.words;
+      return action.payload.words!;
 
     case actions.TEXT_LOAD_FAILURE:
-      return action.payload.err;
+      return [action.payload.err!.message];
 
     default:
       return state;
   }
 };
 
-const reducers = combineReducers({
-  letter: currentLetter,
-  words: currentWords,
+const RootReducer = combineReducers({
+  words: wordsReducer,
+  word: currentWordReducer,
+  letter: currentLetterReducer,
 });
 
-export default reducers;
+export { RootReducer };

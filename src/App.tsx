@@ -5,8 +5,6 @@ import Header from "./components/Header";
 import Footer from "./components/Footer";
 import MainPractice from "./components/MainPractice";
 import MainRace from "./components/MainRace";
-import { Provider } from "react-redux";
-import store from "./redux/store";
 
 const GlobalStyle = createGlobalStyle`
   *, *::after, *::before {
@@ -51,11 +49,10 @@ const App = () => {
     <>
       <ThemeProvider theme={Theme}>
         <GlobalStyle />
-        <Provider store={store}>
-          <Header />
-          <MainPractice />
-          <Footer />
-        </Provider>
+
+        <Header />
+        <MainPractice />
+        <Footer />
       </ThemeProvider>
     </>
   );

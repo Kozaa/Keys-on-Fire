@@ -1,16 +1,28 @@
 import React from "react";
+import { useSelector } from "react-redux";
 import styled, { css } from "styled-components";
 import { caretAnimation } from "../animations/caretAnimation";
+import { AppState } from "../redux/store";
 
 interface LetterProps {
-  current: number;
-  i: number;
+  currentWord: number;
+  currentLetter: number;
+  wordIdx: number;
+  letterIdx: number;
 }
+
+// const StyledLetter = styled.span<LetterProps>`
+// css`.6s ${caretAnimation} infinite alternate`
 
 const StyledLetter = styled.span<LetterProps>`
   position: relative;
-  color: ${({ current, i, theme }) =>
-    current > i - 1 ? theme.colors.grey : "white"};
+  color: ${({ theme, currentWord, currentLetter, wordIdx, letterIdx }) => {
+    if (currentWord > wordIdx) {
+      return theme.colors.grey;
+    } else if (currentWord === wordIdx && currentLetter > letterIdx) {
+      return theme.colors.grey;
+    } else return "white";
+  }};
 
   :after {
     content: "";
@@ -19,22 +31,28 @@ const StyledLetter = styled.span<LetterProps>`
     position: absolute;
     right: 0;
     opacity: 0;
-    background-color: ${({ theme }) => theme.colors.red};
-    animation: ${({ current, i }) =>
-      current === i ? css`.6s ${caretAnimation} infinite alternate` : "none"};
   }
 `;
 
 interface Props {
-  character: string;
-  current: number;
-  i: number;
+  letter: string;
+  letterIdx: number;
+  wordIdx: number;
 }
 
-const Letter = ({ character, current, i }: Props) => (
-  <StyledLetter current={current} i={i}>
-    {character}
-  </StyledLetter>
-);
+const Letter = ({ letter, letterIdx, wordIdx }: Props) => {
+  const currentLetter = useSelector((state: AppState) => state.letter);
+  const currentWord = useSelector((state: AppState) => state.word);
 
+  return (
+    <StyledLetter
+      currentWord={currentWord}
+      currentLetter={currentLetter}
+      letterIdx={letterIdx}
+      wordIdx={wordIdx}
+    >
+      {letter}
+    </StyledLetter>
+  );
+};
 export default Letter;

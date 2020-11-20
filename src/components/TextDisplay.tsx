@@ -1,7 +1,9 @@
 import React from "react";
 import styled from "styled-components";
+import { useDispatch } from "react-redux";
 import Reroll from "../assets/Reroll";
 import Text from "./Text";
+import getData from "../utils/getData";
 
 const StyledWrapper = styled.div`
   max-height: 40%;
@@ -17,10 +19,12 @@ const StyledWrapper = styled.div`
 `;
 
 const TextDisplay = () => {
+  const dispatch = useDispatch();
+
   return (
     <StyledWrapper>
       <Text />
-      <Reroll />
+      <Reroll handleClick={() => getData(dispatch)} />
     </StyledWrapper>
   );
 };

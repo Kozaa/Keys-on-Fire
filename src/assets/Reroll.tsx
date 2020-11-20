@@ -8,7 +8,7 @@ const StyledSvg = styled.svg`
   right: 100px;
   top: 50%;
   transform: translateY(-50%);
-  transition: transform 1s ease-in-out;
+  transition: transform 0.3s ease-in-out;
 
   :hover {
     transform: rotate(180deg) translateY(50%);
@@ -16,8 +16,17 @@ const StyledSvg = styled.svg`
   }
 `;
 
-const Reroll = () => (
-  <StyledSvg version="1.1" id="Capa_1" viewBox="0 0 179.019 179.019">
+const Reroll = ({
+  handleClick,
+}: {
+  handleClick: (event: React.MouseEvent<SVGSVGElement, MouseEvent>) => void;
+}) => (
+  <StyledSvg
+    version="1.1"
+    id="Capa_1"
+    viewBox="0 0 179.019 179.019"
+    onClick={handleClick}
+  >
     <g>
       <g>
         <path
