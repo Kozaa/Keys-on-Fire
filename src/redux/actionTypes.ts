@@ -13,3 +13,5 @@ export const TEXT_LOAD_FAILURE = "TEXT_LOAD_FAILURE";
 //failedLetters
 export const ADD_FAILED_LETTER = "ADD_FAILED_LETTER";
 export const RESET_FAILED_LETTERS = "RESET_FAILED_LETTERS";
+
+export const GAME_RESET = "GAME_RESET";
