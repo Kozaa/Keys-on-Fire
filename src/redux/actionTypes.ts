@@ -9,3 +9,7 @@ export const PREVIOUS_WORD = "PREVIOUS_WORD";
 //currentWords
 export const TEXT_LOAD_SUCCESS = "TEXT_LOAD_SUCCESS";
 export const TEXT_LOAD_FAILURE = "TEXT_LOAD_FAILURE";
+
+//failedLetters
+export const ADD_FAILED_LETTER = "ADD_FAILED_LETTER";
+export const RESET_FAILED_LETTERS = "RESET_FAILED_LETTERS";

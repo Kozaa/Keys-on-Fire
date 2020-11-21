@@ -9,6 +9,7 @@ interface LetterProps {
   currentLetter: number;
   wordIdx: number;
   letterIdx: number;
+  failedLetters: [number, number][];
 }
 
 // const StyledLetter = styled.span<LetterProps>`
@@ -16,8 +17,25 @@ interface LetterProps {
 
 const StyledLetter = styled.span<LetterProps>`
   position: relative;
-  color: ${({ theme, currentWord, currentLetter, wordIdx, letterIdx }) => {
-    if (currentWord > wordIdx) {
+  color: ${({
+    theme,
+    currentWord,
+    currentLetter,
+    wordIdx,
+    letterIdx,
+    failedLetters,
+  }) => {
+    let wordLetterIdx = [wordIdx, letterIdx];
+    let isInFailedLetters = failedLetters.some((a) =>
+      wordLetterIdx.every((v, i) => v === a[i])
+    );
+
+    if (
+      (currentLetter > letterIdx || currentWord > wordIdx) &&
+      isInFailedLetters
+    ) {
+      return theme.colors.red;
+    } else if (currentWord > wordIdx) {
       return theme.colors.grey;
     } else if (currentWord === wordIdx && currentLetter > letterIdx) {
       return theme.colors.grey;
@@ -29,8 +47,13 @@ const StyledLetter = styled.span<LetterProps>`
     width: 2px;
     height: 1em;
     position: absolute;
-    right: 0;
+    left: 0;
     opacity: 0;
+    background-color: ${({ theme }) => theme.colors.red};
+    animation: ${({ currentLetter, currentWord, letterIdx, wordIdx }) =>
+      currentWord === wordIdx && currentLetter === letterIdx
+        ? css`.6s ${caretAnimation} infinite alternate`
+        : "none"};
   }
 `;
 
@@ -43,6 +66,7 @@ interface Props {
 const Letter = ({ letter, letterIdx, wordIdx }: Props) => {
   const currentLetter = useSelector((state: AppState) => state.letter);
   const currentWord = useSelector((state: AppState) => state.word);
+  const failedLetters = useSelector((state: AppState) => state.failedLetters);
 
   return (
     <StyledLetter
@@ -50,6 +74,7 @@ const Letter = ({ letter, letterIdx, wordIdx }: Props) => {
       currentLetter={currentLetter}
       letterIdx={letterIdx}
       wordIdx={wordIdx}
+      failedLetters={failedLetters}
     >
       {letter}
     </StyledLetter>
