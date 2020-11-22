@@ -17,11 +17,14 @@ const MainPractice = () => {
   const currentWord = useSelector((state: AppState) => state.word);
   const currentLetter = useSelector((state: AppState) => state.letter);
 
-  const handleKeyDown: (event: React.KeyboardEvent<HTMLElement>) => void = (
-    e
-  ) => {
-    console.log(e.key);
-    if (currentLetter === 0 && e.key === " ") {
+  const handleInputChange: (
+    event: React.ChangeEvent<HTMLInputElement>
+  ) => void = (e) => {
+    const pressedKey = e.target.value.toLowerCase();
+    console.log(pressedKey);
+
+    if (currentLetter === 0 && pressedKey === " ") {
+      e.target.value = "";
       return;
     }
 
@@ -29,10 +32,11 @@ const MainPractice = () => {
       getData(dispatch);
       dispatch({ type: actions.GAME_RESET });
 
+      e.target.value = "";
       return;
     }
 
-    if (e.key === words[currentWord][currentLetter]) {
+    if (pressedKey === words[currentWord][currentLetter]) {
       if (currentLetter === words[currentWord].length - 1) {
         dispatch({ type: actions.NEXT_WORD });
       } else {
@@ -44,7 +48,7 @@ const MainPractice = () => {
         payload: { letter: [currentWord, currentLetter] },
       });
     }
-    console.log(currentWord);
+    e.target.value = "";
   };
 
   useEffect(() => {
@@ -53,7 +57,7 @@ const MainPractice = () => {
 
   return (
     <StyledMainPractice>
-      <TextDisplay handleKeyDown={handleKeyDown} />
+      <TextDisplay handleInputChange={handleInputChange} />
     </StyledMainPractice>
   );
 };

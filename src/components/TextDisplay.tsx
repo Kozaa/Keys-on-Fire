@@ -1,4 +1,4 @@
-import React from "react";
+import React, { useState, useRef } from "react";
 import styled from "styled-components";
 import { useDispatch } from "react-redux";
 import Reroll from "../assets/Reroll";
@@ -14,54 +14,75 @@ const StyledWrapper = styled.div`
   align-items: center;
   justify-content: center;
   position: relative;
-  overflow: hidden;
 
   line-height: 1.3em;
   background-color: ${({ theme }) => theme.colors.secondaryDark};
+`;
 
-  :after {
-    content: "press to focus";
-    width: 100%;
-    height: 100%;
+const StyledInput = styled.input`
+  width: 0;
+  height: 0;
+  position: fixed;
+  top: -100%;
+`;
 
-    position: absolute;
-    top: 0;
-    left: 0;
+type LabelProps = {
+  isFocused: boolean;
+};
 
-    display: flex;
-    align-items: center;
-    justify-content: center;
+const StyledLabel = styled.label<LabelProps>`
+  width: 100%;
+  height: 100%;
+  position: absolute;
 
-    background-color: rgba(0, 0, 0, 0.8);
-    color: ${({ theme }) => theme.colors.red};
-    transition: transform 1s ease-in-out;
-  }
+  display: flex;
+  align-items: center;
+  justify-content: center;
 
-  :focus,
-  :active {
-    outline: none;
+  font-size: 2em;
 
-    :after {
-      transform: translateY(-100%);
-    }
-  }
+  color: ${({ theme }) => theme.colors.red};
+  background-color: rgba(0, 0, 0, 0.8);
+
+  opacity: ${({ isFocused }) => (isFocused ? 0 : 1)};
+
+  transition: opacity 0.3s ease-in-out;
 `;
 
 interface Props {
-  handleKeyDown: (event: React.KeyboardEvent<HTMLElement>) => void;
+  handleInputChange: (event: React.ChangeEvent<HTMLInputElement>) => void;
 }
 
-const TextDisplay = ({ handleKeyDown }: Props) => {
+const TextDisplay = ({ handleInputChange }: Props) => {
   const dispatch = useDispatch();
+  const [isFocused, setIsFocused] = useState<boolean>(false);
+  const inputRef = useRef<HTMLInputElement>(null);
 
   const handleReroll = () => {
     getData(dispatch);
     dispatch({ type: actions.GAME_RESET });
+    inputRef.current?.focus();
+    setIsFocused(true);
+  };
+
+  const toggleFocus = () => {
+    setIsFocused(!isFocused);
   };
 
   return (
-    <StyledWrapper onKeyDown={handleKeyDown} tabIndex={1}>
+    <StyledWrapper>
       <Text />
+      <StyledLabel htmlFor="input" isFocused={isFocused}>
+        Click to focus
+      </StyledLabel>
+      <StyledInput
+        ref={inputRef}
+        onFocus={toggleFocus}
+        onBlur={toggleFocus}
+        id="input"
+        type="text"
+        onChange={handleInputChange}
+      />
       <Reroll handleClick={handleReroll} />
     </StyledWrapper>
   );
