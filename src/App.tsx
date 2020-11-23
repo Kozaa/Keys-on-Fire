@@ -24,13 +24,6 @@ const GlobalStyle = createGlobalStyle`
     font-size: calc(1vw + 1vh + 3px);
   }
 
-  button {
-    border: none;
-    font-family: inherit;
-    font-size: inherit;
-    color: inherit;
-  }
-
   #root {
     width: 100%;
     
@@ -38,6 +31,28 @@ const GlobalStyle = createGlobalStyle`
     flex-direction: column;
     align-items: center;
   }
+
+  button {
+    border: none;
+    font-family: inherit;
+    font-size: inherit;
+    color: inherit;
+  }
+
+  a {
+    color: inherit;
+    text-decoration: none;
+
+    :visited {
+      color: inherit;
+    }
+
+    :hover {
+      color: ${({ theme }) => theme.colors.red};
+    }
+  }
+
+
 
   @media screen and (max-width: 768px) {
 

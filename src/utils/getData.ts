@@ -8,7 +8,7 @@ const getData = (dispatch: Dispatch) => {
   return fetch(api)
     .then((res) => res.json())
     .then((data) => data.map((item) => item.word))
-    .then((data) => pickRandomItemsFromArr(data, 20))
+    .then((data) => pickRandomItemsFromArr(data, 5))
     .then((words: string[]) =>
       dispatch({
         type: actions.TEXT_LOAD_SUCCESS,

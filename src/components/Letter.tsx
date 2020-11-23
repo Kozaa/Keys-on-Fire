@@ -12,9 +12,6 @@ interface LetterProps {
   failedLetters: [number, number][];
 }
 
-// const StyledLetter = styled.span<LetterProps>`
-// css`.6s ${caretAnimation} infinite alternate`
-
 const StyledLetter = styled.span<LetterProps>`
   position: relative;
   color: ${({

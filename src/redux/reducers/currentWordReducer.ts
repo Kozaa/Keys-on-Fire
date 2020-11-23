@@ -4,6 +4,7 @@ type WordAction = {
   type:
     | typeof actions.NEXT_WORD
     | typeof actions.PREVIOUS_WORD
+    | typeof actions.RESET_WORD
     | typeof actions.GAME_RESET;
 };
 
@@ -13,6 +14,8 @@ const currentWordReducer = (state = 0, action: WordAction): number => {
       return state + 1;
     case actions.PREVIOUS_WORD:
       return state - 1;
+    case actions.RESET_WORD:
+      return 0;
     case actions.GAME_RESET:
       return 0;
     default:

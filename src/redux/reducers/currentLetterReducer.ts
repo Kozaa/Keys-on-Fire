@@ -5,7 +5,8 @@ type LetterAction = {
     | typeof actions.NEXT_LETTER
     | typeof actions.PREVIOUS_LETTER
     | typeof actions.NEXT_WORD
-    | typeof actions.GAME_RESET;
+    | typeof actions.GAME_RESET
+    | typeof actions.RESET_LETTER;
 };
 
 const currentLetterReducer = (state = 0, action: LetterAction): number => {
@@ -15,6 +16,8 @@ const currentLetterReducer = (state = 0, action: LetterAction): number => {
     case actions.PREVIOUS_LETTER:
       return state - 1;
     case actions.NEXT_WORD:
+      return 0;
+    case actions.RESET_LETTER:
       return 0;
     case actions.GAME_RESET:
       return 0;

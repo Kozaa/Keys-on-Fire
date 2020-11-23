@@ -4,8 +4,7 @@ import Letter from "./Letter";
 
 const StyledWord = styled.div`
   display: inline-block;
-  margin-right: 5px;
-  //white-space: pre-wrap;
+  margin-right: 8px;
 `;
 
 interface Props {
