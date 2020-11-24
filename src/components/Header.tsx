@@ -5,7 +5,7 @@ import Logo from "../assets/Logo";
 
 const StyledHeader = styled.header`
   width: 70%;
-  height: calc(30vh - 50px);
+  height: 25vh;
 
   display: flex;
   align-items: center;

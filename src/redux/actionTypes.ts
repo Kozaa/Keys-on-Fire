@@ -23,3 +23,6 @@ export const GAME_RESET = "GAME_RESET";
 export const TIMER_RESET = "TIMER_RESET";
 export const TIMER_START = "TIMER_START";
 export const TIMER_STOP = "TIMER_STOP";
+
+//endpooint
+export const SET_ENDPOINT = "SET_ENDPOINT";

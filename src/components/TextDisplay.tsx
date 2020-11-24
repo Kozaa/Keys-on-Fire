@@ -1,13 +1,13 @@
 import React, { useState, useRef } from "react";
 import styled from "styled-components";
-import { useDispatch } from "react-redux";
+import { useDispatch, useSelector } from "react-redux";
 import Reroll from "../assets/Reroll";
 import Text from "./Text";
 import getData from "../utils/getData";
 import * as actions from "../redux/actionTypes";
+import { AppState } from "../redux/store";
 
 const StyledWrapper = styled.div`
-  max-height: 40%;
   padding: 20px 0;
 
   display: flex;
@@ -56,10 +56,11 @@ interface Props {
 const TextDisplay = ({ handleInputChange }: Props) => {
   const dispatch = useDispatch();
   const [isFocused, setIsFocused] = useState<boolean>(false);
+  const endpoint = useSelector((state: AppState) => state.endpoint);
   const inputRef = useRef<HTMLInputElement>(null);
 
   const handleReroll = () => {
-    getData(dispatch);
+    getData(dispatch, endpoint);
     dispatch({ type: actions.GAME_RESET });
     inputRef.current?.focus();
     setIsFocused(true);

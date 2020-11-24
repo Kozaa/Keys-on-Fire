@@ -5,7 +5,7 @@ const StyledSvg = styled.svg`
   width: 50px;
   height: 50px;
   position: absolute;
-  right: 100px;
+  right: 8%;
   top: 50%;
   transform: translateY(-50%);
   transition: transform 0.3s ease-in-out;

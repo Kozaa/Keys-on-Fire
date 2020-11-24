@@ -7,6 +7,7 @@ import { AppState } from "../redux/store";
 import * as actions from "../redux/actionTypes";
 import calculateWPM from "../utils/calculateWPM";
 import ResultDisplay from "./ResultDisplay";
+import EndpointButtonsDisplay from "./EndpointButtonsDisplay";
 
 const StyledMainPractice = styled.main`
   width: 100%;
@@ -22,6 +23,7 @@ const MainPractice = () => {
   const errorCount = useSelector(
     (state: AppState) => state.failedLetters.length
   );
+  const endpoint = useSelector((state: AppState) => state.endpoint);
 
   const handleInputChange: (
     event: React.ChangeEvent<HTMLInputElement>
@@ -48,10 +50,11 @@ const MainPractice = () => {
     }
 
     if (
+      pressedKey === words[currentWord][currentLetter] &&
       currentWord === words.length - 1 &&
       currentLetter === words[currentWord].length - 1
     ) {
-      getData(dispatch);
+      getData(dispatch, endpoint);
       dispatch({ type: actions.RESET_WORD });
       dispatch({ type: actions.RESET_LETTER });
       console.log("stop");
@@ -80,8 +83,11 @@ const MainPractice = () => {
   };
 
   useEffect(() => {
-    getData(dispatch);
-  }, []);
+    getData(dispatch, endpoint);
+    dispatch({
+      type: actions.GAME_RESET,
+    });
+  }, [endpoint]);
 
   return (
     <StyledMainPractice>
@@ -92,6 +98,7 @@ const MainPractice = () => {
           errorCount={errorCount}
         />
       ) : null}
+      <EndpointButtonsDisplay />
     </StyledMainPractice>
   );
 };

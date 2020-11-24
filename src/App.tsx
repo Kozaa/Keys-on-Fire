@@ -14,6 +14,7 @@ const GlobalStyle = createGlobalStyle`
   body {
     margin: 0;
     height: 100vh;
+    min-height: 100vh;
     width: 100%;
 
 
@@ -22,6 +23,10 @@ const GlobalStyle = createGlobalStyle`
 
     font-family: ${({ theme }) => theme.font.primary};
     font-size: calc(1vw + 1vh + 3px);
+
+    @media screen and (max-width: 768px) {
+      font-size: calc(1vw + 1vh + 8px)
+    }
   }
 
   #root {

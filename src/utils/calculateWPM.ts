@@ -4,7 +4,6 @@ type TimerState = {
 };
 
 const calculateWPM = (timer: TimerState, length: number): string | null => {
-  console.log(length, timer.startedAt, timer.stoppedAt);
   if (!length || !timer.stoppedAt || !timer.startedAt) return null;
 
   const miliseconds = timer.stoppedAt - timer.startedAt;

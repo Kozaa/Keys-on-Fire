@@ -3,16 +3,22 @@ import styled from "styled-components";
 
 const StyledFooter = styled.footer`
   width: 100%;
-  height: 50px;
+  height: 5vh;
   padding: 0 20px;
 
-  display: flex;
+  display: grid;
+  grid-template-columns: auto 1fr auto;
   align-items: center;
-  justify-content: space-between;
+  justify-content: center;
 
   font-family: ${({ theme }) => theme.font.secondary};
   font-size: 0.6em;
+  text-align: center;
   background-color: black;
+
+  @media screen and (max-width: 768px) {
+    grid-template-columns: 100px 1fr 100px;
+  }
 `;
 
 const Footer = () => (
@@ -29,7 +35,7 @@ const Footer = () => (
     </div>
     <span>Keys on Fire | copyright 2020</span>
     <div>
-      <span>words from: </span>
+      <span>words: </span>
       <a href="https://www.datamuse.com/api/" target="_blank" rel="noreferrer">
         Datamuse
       </a>
