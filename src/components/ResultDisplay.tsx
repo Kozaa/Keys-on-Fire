@@ -3,6 +3,7 @@ import styled from "styled-components";
 import { Theme } from "../theme";
 
 const StyledResult = styled.div`
+  height: 20vh;
   width: 100%;
   padding: 40px;
 

@@ -2,6 +2,10 @@ import React from "react";
 import styled from "styled-components";
 import EndpointButton from "./EndpointButton";
 import { Endpoints } from "../utils/constatnts";
+import { useDispatch } from "react-redux";
+import * as actions from "../redux/actionTypes";
+import pickRandomItemsFromArr from "../utils/pickRandomItemsFormArr";
+import { CommonWordSet, numberOfWords } from "../utils/constatnts";
 
 const StyledWrapper = styled.div`
   height: 30vh;
@@ -30,13 +34,47 @@ const H1 = styled.span`
 `;
 
 const EndpointButtonsDisplay = () => {
+  const dispatch = useDispatch();
+
+  const handleEndpointChange = (endpoint: string) => {
+    dispatch({
+      type: actions.SET_ENDPOINT,
+      payload: {
+        endpoint: endpoint,
+      },
+    });
+  };
+  const handleCommonWords = () => {
+    dispatch({
+      type: actions.SET_WORD_SET,
+      payload: {
+        words: pickRandomItemsFromArr(CommonWordSet, numberOfWords),
+      },
+    });
+
+    dispatch({
+      type: actions.SET_ENDPOINT,
+      payload: {
+        endpoint: "common words",
+      },
+    });
+  };
+
   return (
     <StyledWrapper>
       <H1>Word set:</H1>
       <ButtonsWrapper>
         {Endpoints.map((endpoint) => (
-          <EndpointButton key={endpoint}>{endpoint}</EndpointButton>
+          <EndpointButton
+            key={endpoint}
+            endpoint={endpoint}
+            handleClick={handleEndpointChange}
+          />
         ))}
+        <EndpointButton
+          endpoint="common words"
+          handleClick={handleCommonWords}
+        />
       </ButtonsWrapper>
     </StyledWrapper>
   );

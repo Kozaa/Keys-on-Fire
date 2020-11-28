@@ -16,8 +16,11 @@ const Text = () => {
 
   return (
     <StyledWrapper>
-      {words &&
-        words.map((word, i) => <Word word={word} wordIdx={i} key={i} />)}
+      {typeof words === "string" ? (
+        <div>loading...</div>
+      ) : (
+        words.map((word, i) => <Word word={word} wordIdx={i} key={i} />)
+      )}
     </StyledWrapper>
   );
 };

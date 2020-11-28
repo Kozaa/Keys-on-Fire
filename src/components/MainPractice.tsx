@@ -30,7 +30,7 @@ const MainPractice = () => {
   ) => void = (e) => {
     const pressedKey = e.target.value.toLowerCase();
 
-    if (currentWord === 0 && currentLetter === 1) {
+    if (currentWord === 0 && currentLetter === 0) {
       console.log("reset");
       dispatch({ type: actions.RESET_FAILED_LETTERS });
       dispatch({
@@ -92,11 +92,8 @@ const MainPractice = () => {
   return (
     <StyledMainPractice>
       <TextDisplay handleInputChange={handleInputChange} />
-      {calculateWPM(timer, words.length) ? (
-        <ResultDisplay
-          wpm={calculateWPM(timer, words.length)}
-          errorCount={errorCount}
-        />
+      {calculateWPM(timer) ? (
+        <ResultDisplay wpm={calculateWPM(timer)} errorCount={errorCount} />
       ) : null}
       <EndpointButtonsDisplay />
     </StyledMainPractice>

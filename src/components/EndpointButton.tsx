@@ -1,7 +1,6 @@
 import React from "react";
-import { useDispatch, useSelector } from "react-redux";
+import { useSelector } from "react-redux";
 import styled, { css } from "styled-components";
-import * as actions from "../redux/actionTypes";
 import { AppState } from "../redux/store";
 
 interface ButtonProps {
@@ -26,29 +25,20 @@ const StyledButton = styled.button<ButtonProps>`
 `;
 
 interface Props {
-  children: string;
+  endpoint: string;
+  handleClick: (endpoint: string) => void | (() => void);
 }
 
-const EndpointButton = ({ children }: Props) => {
-  const dispatch = useDispatch();
+const EndpointButton = ({ handleClick, endpoint }: Props) => {
   const currentEndpoint = useSelector((state: AppState) => state.endpoint);
-
-  const handleClick = (e: React.MouseEvent<HTMLButtonElement, MouseEvent>) => {
-    dispatch({
-      type: actions.SET_ENDPOINT,
-      payload: {
-        endpoint: children,
-      },
-    });
-  };
 
   return (
     <StyledButton
-      onClick={handleClick}
+      onClick={() => handleClick(endpoint)}
       currentEndpoint={currentEndpoint}
-      currentButton={children}
+      currentButton={endpoint}
     >
-      {children}
+      {endpoint}
     </StyledButton>
   );
 };
