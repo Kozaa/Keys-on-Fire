@@ -5,6 +5,7 @@ import wordsReducer from "./wordsReducer";
 import failedLettersReducer from "./failedLettersReducer";
 import timerReducer from "./timerReducer";
 import endpointReducer from "./endpointReducer";
+import { raceStateReducer } from "./raceStateReducer";
 
 const RootReducer = combineReducers({
   words: wordsReducer,
@@ -13,6 +14,7 @@ const RootReducer = combineReducers({
   failedLetters: failedLettersReducer,
   timer: timerReducer,
   endpoint: endpointReducer,
+  raceState: raceStateReducer,
 });
 
 export { RootReducer };

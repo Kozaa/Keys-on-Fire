@@ -1,4 +1,4 @@
-import React from "react";
+import React, { useState } from "react";
 import { createGlobalStyle, ThemeProvider } from "styled-components";
 import { Theme } from "./theme";
 import Header from "./components/Header";
@@ -37,7 +37,7 @@ const GlobalStyle = createGlobalStyle`
     align-items: center;
   }
 
-  button {
+  button, input {
     border: none;
     font-family: inherit;
     font-size: inherit;
@@ -57,21 +57,24 @@ const GlobalStyle = createGlobalStyle`
     }
   }
 
-
-
-  @media screen and (max-width: 768px) {
-
-  }
 `;
 
 const App = () => {
+  //false = practice | true = race
+  const [page, setPage] = useState("Practice");
+
+  const handleSetPage = (newPage: string) => {
+    setPage(newPage);
+  };
+
   return (
     <>
       <ThemeProvider theme={Theme}>
         <GlobalStyle />
 
-        <Header />
-        <MainPractice />
+        <Header handleSetPage={handleSetPage} page={page} />
+        {page === "Practice" ? <MainPractice /> : <MainRace />}
+
         <Footer />
       </ThemeProvider>
     </>

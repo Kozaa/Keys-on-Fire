@@ -28,3 +28,8 @@ export const TIMER_STOP = "TIMER_STOP";
 
 //endpooint
 export const SET_ENDPOINT = "SET_ENDPOINT";
+
+//raceState
+export const RACE_STATE_CHOOSING = "RACE_STATE_CHOOSING";
+export const RACE_STATE_HOST = "RACE_STATE_HOST";
+export const RACE_STATE_JOINED = "RACE_STATE_JOINED";

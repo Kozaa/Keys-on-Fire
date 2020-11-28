@@ -24,16 +24,18 @@ interface TextProps {
 const StyledText = styled.span<TextProps>`
   border-bottom: ${({ theme, selected }) =>
     selected ? `${theme.colors.red} 2px solid` : "none"};
+  transition: border-width 0.2s ease-in-out;
 `;
 
 interface Props {
   children: string;
   selected: boolean;
+  handleSetPage: (newPage: string) => void;
 }
 
-const NavButton = ({ children, selected }: Props) => {
+const NavButton = ({ children, selected, handleSetPage }: Props) => {
   return (
-    <StyledNavButton>
+    <StyledNavButton onClick={() => handleSetPage(children)}>
       <StyledText selected={selected}>{children}</StyledText>
     </StyledNavButton>
   );

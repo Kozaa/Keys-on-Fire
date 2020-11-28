@@ -21,11 +21,20 @@ const StyledHeader = styled.header`
   }
 `;
 
-const Header = () => (
+interface Props {
+  handleSetPage: (newPage: string) => void;
+  page: string;
+}
+
+const Header = ({ handleSetPage, page }: Props) => (
   <StyledHeader>
-    <NavButton selected={true}>Practice</NavButton>
+    <NavButton handleSetPage={handleSetPage} selected={page === "Practice"}>
+      Practice
+    </NavButton>
     <Logo />
-    <NavButton selected={false}>Race</NavButton>
+    <NavButton handleSetPage={handleSetPage} selected={page === "Race"}>
+      Race
+    </NavButton>
   </StyledHeader>
 );
 
