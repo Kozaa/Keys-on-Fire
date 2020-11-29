@@ -2,7 +2,6 @@ import React from "react";
 import styled from "styled-components";
 import Word from "./Word";
 import { useSelector } from "react-redux";
-
 import { AppState } from "../redux/store";
 
 const StyledWrapper = styled.div`

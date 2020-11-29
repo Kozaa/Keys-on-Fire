@@ -9,7 +9,7 @@ import { AppState } from "../redux/store";
 
 const StyledWrapper = styled.div`
   padding: 20px 0;
-  min-height: 20vh;
+  min-height: 20%;
 
   display: flex;
   align-items: center;

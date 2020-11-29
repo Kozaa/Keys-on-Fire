@@ -12,7 +12,7 @@ const StyledButton = styled.button`
 
 interface Props {
   children: string;
-  style: React.CSSProperties;
+  style?: React.CSSProperties;
   handleClick?: () => void;
 }
 

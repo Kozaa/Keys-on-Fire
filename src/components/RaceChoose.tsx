@@ -1,4 +1,6 @@
 import React, { useState } from "react";
+import { useDispatch } from "react-redux";
+import * as actions from "../redux/actionTypes";
 import styled from "styled-components";
 import Button from "./Button";
 
@@ -12,8 +14,6 @@ const StyledWrapper = styled.div`
   grid-gap: 10px;
   grid-template-columns: 1fr 1fr;
   grid-template-rows: 1.2em 1.4em 1.2em 1.4em 100px;
-  align-content: center;
-  justify-content: center;
   align-items: center;
   justify-items: center;
 
@@ -56,13 +56,18 @@ const inlineButton2Style =
 const RaceChoose = () => {
   const [usernameInput, setUsernameInput] = useState("");
   const [gameIDInput, setGameIDInput] = useState("");
+  const dispatch = useDispatch();
 
   const handleUsernameChange = (e: React.ChangeEvent<HTMLInputElement>) => {
     setUsernameInput(e.target.value);
   };
 
   const handleGameIDChange = (e: React.ChangeEvent<HTMLInputElement>) => {
-    setGameIDInput(e.target.value);
+    setGameIDInput(e.target.value.toUpperCase());
+  };
+
+  const handleHostNewGame = () => {
+    dispatch({ type: actions.RACE_STATE_HOST });
   };
 
   return (
@@ -71,18 +76,20 @@ const RaceChoose = () => {
       <StyledInput
         type="text"
         placeholder="1-10 characters"
-        onChange={handleGameIDChange}
-        value={gameIDInput}
+        onChange={handleUsernameChange}
+        value={usernameInput}
       />
       <span>gameID</span>
       <StyledInput2
         type="text"
         placeholder="ex. H3GA1"
-        onChange={handleUsernameChange}
-        value={usernameInput}
+        onChange={handleGameIDChange}
+        value={gameIDInput}
       />
       <Button style={inlineButton1Style}>join game</Button>
-      <Button style={inlineButton2Style}>host new game</Button>
+      <Button style={inlineButton2Style} handleClick={handleHostNewGame}>
+        host new game
+      </Button>
     </StyledWrapper>
   );
 };

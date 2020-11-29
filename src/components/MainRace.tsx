@@ -5,6 +5,7 @@ import { AppState } from "../redux/store";
 import { RaceStateEnum } from "../redux/reducers/raceStateReducer";
 import * as actions from "../redux/actionTypes";
 import RaceChoose from "./RaceChoose";
+import RaceDisplay from "./RaceDisplay";
 
 const StyledMainRace = styled.main`
   width: 100%;
@@ -20,7 +21,7 @@ const MainRace: React.FC = () => {
       case RaceStateEnum.CHOOSING:
         return <RaceChoose />;
       case RaceStateEnum.HOST:
-        return <div>host</div>;
+        return <RaceDisplay host={true} />;
       case RaceStateEnum.JOINED:
         return <div>joined</div>;
     }

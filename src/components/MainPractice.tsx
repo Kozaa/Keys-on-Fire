@@ -16,14 +16,15 @@ const StyledMainPractice = styled.main`
 
 const MainPractice = () => {
   const dispatch = useDispatch();
-  const words = useSelector((state: AppState) => state.words);
-  const currentWord = useSelector((state: AppState) => state.word);
-  const currentLetter = useSelector((state: AppState) => state.letter);
-  const timer = useSelector((state: AppState) => state.timer);
-  const errorCount = useSelector(
-    (state: AppState) => state.failedLetters.length
-  );
-  const endpoint = useSelector((state: AppState) => state.endpoint);
+
+  const {
+    words,
+    word: currentWord,
+    letter: currentLetter,
+    timer,
+    failedLetters,
+    endpoint,
+  } = useSelector((state: AppState) => state);
 
   const handleInputChange: (
     event: React.ChangeEvent<HTMLInputElement>
@@ -93,7 +94,10 @@ const MainPractice = () => {
     <StyledMainPractice>
       <TextDisplay handleInputChange={handleInputChange} />
       {calculateWPM(timer) ? (
-        <ResultDisplay wpm={calculateWPM(timer)} errorCount={errorCount} />
+        <ResultDisplay
+          wpm={calculateWPM(timer)}
+          errorCount={failedLetters.length}
+        />
       ) : null}
       <EndpointButtonsDisplay />
     </StyledMainPractice>
