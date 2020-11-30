@@ -8,11 +8,16 @@ const StyledWrapper = styled.div`
   background-color: ${({ theme }) => theme.colors.secondaryDark};
 `;
 
-const ColoredBar = styled.div`
+interface ColoredBarProps {
+  currentWord: number;
+}
+
+const ColoredBar = styled.div<ColoredBarProps>`
   position: absolute;
   background-color: red;
-  width: 50%;
+  width: ${({ currentWord }) => `${currentWord * 5}%`};
   height: 100%;
+  transition: width 1s ease-in-out;
 `;
 
 const StyledSpan = styled.span`
@@ -23,11 +28,16 @@ const StyledSpan = styled.span`
   z-index: 1;
 `;
 
-const ProgressBar = () => {
+interface Props {
+  currentWord: number;
+  name: string;
+}
+
+const ProgressBar = ({ currentWord, name }: Props) => {
   return (
     <StyledWrapper>
-      <ColoredBar />
-      <StyledSpan>Name</StyledSpan>
+      <ColoredBar currentWord={currentWord} />
+      <StyledSpan>{name}</StyledSpan>
     </StyledWrapper>
   );
 };

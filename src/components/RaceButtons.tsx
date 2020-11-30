@@ -11,11 +11,15 @@ const StyledWrapper = styled.div`
   justify-content: space-around;
 `;
 
-const RaceButtons = () => {
+interface Props {
+  host: boolean;
+}
+
+const RaceButtons = ({ host }: Props) => {
   return (
     <StyledWrapper>
       <Button>Ready</Button>
-      <Button>Start Race</Button>
+      {host ? <Button>Start Race</Button> : null}
     </StyledWrapper>
   );
 };

@@ -19,15 +19,16 @@ const LowerWrapper = styled.div`
 
 interface Props {
   host: boolean;
+  handleInputChange: (e: React.ChangeEvent<HTMLInputElement>) => void;
 }
 
-const RaceDisplay = ({ host }: Props) => {
+const RaceDisplay = ({ host, handleInputChange }: Props) => {
   return (
     <StyledWrapper>
-      <TextDisplay handleInputChange={() => console.log("hey")} />
+      <TextDisplay handleInputChange={handleInputChange} />
       <LowerWrapper>
         <PlayerProgressDisplay />
-        <RaceButtons />
+        <RaceButtons host={host} />
       </LowerWrapper>
     </StyledWrapper>
   );

@@ -1,6 +1,7 @@
 import React from "react";
 import styled from "styled-components";
 import PlayerProgress from "./PlayerProgress";
+import { dummyData } from "../utils/constatnts";
 
 const StyledWrapper = styled.div`
   width: 70%;
@@ -30,10 +31,9 @@ const PlayerProgressDisplay = () => {
         <div style={{ width: "20%" }}>speed</div>
         <div style={{ width: "10%" }}>errors</div>
       </StyledDiv>
-      <PlayerProgress />
-      <PlayerProgress />
-      <PlayerProgress />
-      <PlayerProgress />
+      {dummyData.XQR2A.players.map((player, i) => (
+        <PlayerProgress {...player} key={i} />
+      ))}
     </StyledWrapper>
   );
 };

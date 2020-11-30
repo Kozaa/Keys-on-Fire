@@ -10,12 +10,19 @@ const StyledWrapper = styled.div`
   justify-content: space-around;
 `;
 
-const PlayerProgress = () => {
+interface Props {
+  name: string;
+  currentWord: number;
+  wpm: number;
+  errors: number;
+}
+
+const PlayerProgress = ({ name, currentWord, wpm, errors }: Props) => {
   return (
     <StyledWrapper>
-      <ProgressBar />
-      <div style={{ width: "20%" }}>42.32 WPM</div>
-      <div style={{ width: "10%" }}>8</div>
+      <ProgressBar name={name} currentWord={currentWord} />
+      <div style={{ width: "20%" }}>{wpm} WPM</div>
+      <div style={{ width: "10%" }}>{errors}</div>
     </StyledWrapper>
   );
 };

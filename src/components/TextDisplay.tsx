@@ -6,6 +6,7 @@ import Text from "./Text";
 import getData from "../utils/getData";
 import * as actions from "../redux/actionTypes";
 import { AppState } from "../redux/store";
+import { RaceStateEnum } from "../redux/reducers/raceStateReducer";
 
 const StyledWrapper = styled.div`
   padding: 20px 0;
@@ -58,6 +59,7 @@ const TextDisplay = ({ handleInputChange }: Props) => {
   const dispatch = useDispatch();
   const [isFocused, setIsFocused] = useState<boolean>(false);
   const endpoint = useSelector((state: AppState) => state.endpoint);
+  const raceState = useSelector((state: AppState) => state.raceState);
   const inputRef = useRef<HTMLInputElement>(null);
 
   const handleReroll = () => {
@@ -85,7 +87,9 @@ const TextDisplay = ({ handleInputChange }: Props) => {
         type="text"
         onChange={handleInputChange}
       />
-      <Reroll handleClick={handleReroll} />
+      {raceState === RaceStateEnum.JOINED ? null : (
+        <Reroll handleClick={handleReroll} />
+      )}
     </StyledWrapper>
   );
 };

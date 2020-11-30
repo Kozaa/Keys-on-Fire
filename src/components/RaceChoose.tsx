@@ -3,6 +3,8 @@ import { useDispatch } from "react-redux";
 import * as actions from "../redux/actionTypes";
 import styled from "styled-components";
 import Button from "./Button";
+import { dummyData } from "../utils/constatnts";
+import getRandomGameID from "../utils/getRandomGameID";
 
 const StyledWrapper = styled.div`
   width: 100%;
@@ -67,7 +69,24 @@ const RaceChoose = () => {
   };
 
   const handleHostNewGame = () => {
-    dispatch({ type: actions.RACE_STATE_HOST });
+    if (usernameInput) {
+      dispatch({ type: actions.RACE_STATE_HOST });
+      const gameID = getRandomGameID();
+      // dispatch gameID
+      // send gameID and text to server
+    } else alert("Username is required to host a game.");
+  };
+
+  const handleJoinGame = () => {
+    if (usernameInput && gameIDInput) {
+      //check if game id exzist
+      //send name to database
+      dispatch({ type: actions.RACE_STATE_JOINED });
+      dispatch({
+        type: actions.SET_WORD_SET,
+        payload: { words: dummyData.XQR2A.setting.text },
+      });
+    } else alert("Invalid username or gameID");
   };
 
   return (
@@ -86,7 +105,9 @@ const RaceChoose = () => {
         onChange={handleGameIDChange}
         value={gameIDInput}
       />
-      <Button style={inlineButton1Style}>join game</Button>
+      <Button style={inlineButton1Style} handleClick={handleJoinGame}>
+        join game
+      </Button>
       <Button style={inlineButton2Style} handleClick={handleHostNewGame}>
         host new game
       </Button>
