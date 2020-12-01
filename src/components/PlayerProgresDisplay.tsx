@@ -1,7 +1,11 @@
 import React from "react";
 import styled from "styled-components";
 import PlayerProgress from "./PlayerProgress";
-import { dummyData } from "../utils/constatnts";
+import firestore from "../firebase";
+import { useCollectionData } from "react-firebase-hooks/firestore";
+import { FirestoreDataType } from "../utils/constatnts";
+import { useSelector } from "react-redux";
+import { AppState } from "../redux/store";
 
 const StyledWrapper = styled.div`
   width: 70%;
@@ -24,6 +28,12 @@ const StyledDiv = styled.div`
 `;
 
 const PlayerProgressDisplay = () => {
+  const gameID = useSelector(
+    (state: AppState) => state.raceData.connectedGameID
+  );
+  const [games] = useCollectionData<FirestoreDataType>(firestore);
+  const game = games?.find((game) => game.id === gameID);
+
   return (
     <StyledWrapper>
       <StyledDiv>
@@ -31,9 +41,8 @@ const PlayerProgressDisplay = () => {
         <div style={{ width: "20%" }}>speed</div>
         <div style={{ width: "10%" }}>errors</div>
       </StyledDiv>
-      {dummyData.XQR2A.players.map((player, i) => (
-        <PlayerProgress {...player} key={i} />
-      ))}
+      {game &&
+        game.players.map((player, i) => <PlayerProgress {...player} key={i} />)}
     </StyledWrapper>
   );
 };

@@ -1,10 +1,15 @@
 import React, { useState } from "react";
-import { useDispatch } from "react-redux";
+import { useDispatch, useSelector } from "react-redux";
 import * as actions from "../redux/actionTypes";
 import styled from "styled-components";
 import Button from "./Button";
 import { dummyData } from "../utils/constatnts";
-import getRandomGameID from "../utils/getRandomGameID";
+import createGameInstance from "../utils/createGameInstance";
+import firestore from "../firebase";
+import { AppState } from "../redux/store";
+import { useCollectionData } from "react-firebase-hooks/firestore";
+import { FirestoreDataType } from "../utils/constatnts";
+import PlayerProgress from "./PlayerProgress";
 
 const StyledWrapper = styled.div`
   width: 100%;
@@ -59,6 +64,8 @@ const RaceChoose = () => {
   const [usernameInput, setUsernameInput] = useState("");
   const [gameIDInput, setGameIDInput] = useState("");
   const dispatch = useDispatch();
+  const words = useSelector((state: AppState) => state.words);
+  const [games] = useCollectionData<FirestoreDataType>(firestore);
 
   const handleUsernameChange = (e: React.ChangeEvent<HTMLInputElement>) => {
     setUsernameInput(e.target.value);
@@ -70,10 +77,8 @@ const RaceChoose = () => {
 
   const handleHostNewGame = () => {
     if (usernameInput) {
+      createGameInstance(dispatch, usernameInput, words);
       dispatch({ type: actions.RACE_STATE_HOST });
-      const gameID = getRandomGameID();
-      // dispatch gameID
-      // send gameID and text to server
     } else alert("Username is required to host a game.");
   };
 
@@ -81,11 +86,41 @@ const RaceChoose = () => {
     if (usernameInput && gameIDInput) {
       //check if game id exzist
       //send name to database
-      dispatch({ type: actions.RACE_STATE_JOINED });
-      dispatch({
-        type: actions.SET_WORD_SET,
-        payload: { words: dummyData.XQR2A.setting.text },
-      });
+
+      const gamesIDs = games?.map((game) => game.id);
+
+      if (gamesIDs?.includes(gameIDInput)) {
+        const game = games?.find((game) => game.id === gameIDInput);
+
+        if (!game?.settings.started && game!.players.length < 4) {
+          firestore.doc(gameIDInput).update({
+            players: [
+              ...game!.players,
+              {
+                name: usernameInput,
+                currentWord: 0,
+                errors: 0,
+                wpm: 0,
+              },
+            ],
+          });
+
+          dispatch({
+            type: actions.SET_WORD_SET,
+            payload: { words: game?.settings.text },
+          });
+
+          dispatch({
+            type: actions.RACE_DATA_UPDATE,
+            payload: {
+              name: usernameInput,
+              gameID: gameIDInput,
+            },
+          });
+
+          dispatch({ type: actions.RACE_STATE_JOINED });
+        } else alert("Sorry, game already in progress");
+      } else alert("Couldnt find that gameID");
     } else alert("Invalid username or gameID");
   };
 

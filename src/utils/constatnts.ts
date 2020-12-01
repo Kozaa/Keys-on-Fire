@@ -2,6 +2,22 @@ export const Endpoints = ["animals", "human", "art", "internet", "sports"];
 
 export const numberOfWords = 20;
 
+type Player = {
+  name: string;
+  currentWord: number;
+  errors: number;
+  wpm: number;
+};
+
+export type FirestoreDataType = {
+  id: string;
+  settings: {
+    text: string[];
+    started: boolean;
+  };
+  players: Player[];
+};
+
 export const dummyData = {
   XQR2A: {
     setting: {

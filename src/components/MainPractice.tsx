@@ -99,6 +99,7 @@ const MainPractice = () => {
           errorCount={failedLetters.length}
         />
       ) : null}
+      {/* <div>{games ? games[0].id : null}</div> */}
       <EndpointButtonsDisplay />
     </StyledMainPractice>
   );

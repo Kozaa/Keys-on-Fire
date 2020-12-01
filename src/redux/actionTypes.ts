@@ -33,3 +33,7 @@ export const SET_ENDPOINT = "SET_ENDPOINT";
 export const RACE_STATE_CHOOSING = "RACE_STATE_CHOOSING";
 export const RACE_STATE_HOST = "RACE_STATE_HOST";
 export const RACE_STATE_JOINED = "RACE_STATE_JOINED";
+
+//raceData
+
+export const RACE_DATA_UPDATE = "RACE_DATA_UPDATE";

@@ -18,7 +18,8 @@ interface Props {
 const RaceButtons = ({ host }: Props) => {
   return (
     <StyledWrapper>
-      <Button>Ready</Button>
+      {/* <Button>Ready</Button> */}
+      <span>Waiting for the host to start the game...</span>
       {host ? <Button>Start Race</Button> : null}
     </StyledWrapper>
   );
