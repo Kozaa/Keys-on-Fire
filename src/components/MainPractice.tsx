@@ -8,6 +8,7 @@ import * as actions from "../redux/actionTypes";
 import calculateWPM from "../utils/calculateWPM";
 import ResultDisplay from "./ResultDisplay";
 import EndpointButtonsDisplay from "./EndpointButtonsDisplay";
+import { numberOfWords } from "../utils/constatnts";
 
 const StyledMainPractice = styled.main`
   width: 100%;
@@ -92,7 +93,7 @@ const MainPractice = () => {
 
   return (
     <StyledMainPractice>
-      <TextDisplay handleInputChange={handleInputChange} />
+      <TextDisplay handleInputChange={handleInputChange} started={true} />
       {calculateWPM(timer) ? (
         <ResultDisplay
           wpm={calculateWPM(timer)}

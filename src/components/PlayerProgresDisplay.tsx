@@ -33,16 +33,28 @@ const PlayerProgressDisplay = () => {
   );
   const [games] = useCollectionData<FirestoreDataType>(firestore);
   const game = games?.find((game) => game.id === gameID);
+  const playerKeys = game
+    ? Object.keys(game!?.players).sort((a, b) => (a > b ? 1 : -1))
+    : [];
 
   return (
     <StyledWrapper>
       <StyledDiv>
-        <div style={{ width: "70%", textAlign: "left" }}>gameID: XD24D</div>
+        <div style={{ width: "70%", textAlign: "left" }}>gameID: {gameID}</div>
         <div style={{ width: "20%" }}>speed</div>
         <div style={{ width: "10%" }}>errors</div>
       </StyledDiv>
       {game &&
-        game.players.map((player, i) => <PlayerProgress {...player} key={i} />)}
+        playerKeys.map((player, i) => (
+          <PlayerProgress
+            name={player}
+            currentWord={game.players[player].currentWord}
+            errors={game.players[player].errors}
+            wpm={game.players[player].wpm}
+            started={game.settings.started}
+            key={i}
+          />
+        ))}
     </StyledWrapper>
   );
 };

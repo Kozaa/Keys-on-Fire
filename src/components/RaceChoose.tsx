@@ -68,7 +68,9 @@ const RaceChoose = () => {
   const [games] = useCollectionData<FirestoreDataType>(firestore);
 
   const handleUsernameChange = (e: React.ChangeEvent<HTMLInputElement>) => {
-    setUsernameInput(e.target.value);
+    if (e.target.value.length <= 10) {
+      setUsernameInput(e.target.value);
+    } else alert("Username cannot be longer than 10 charackters.");
   };
 
   const handleGameIDChange = (e: React.ChangeEvent<HTMLInputElement>) => {
@@ -92,17 +94,18 @@ const RaceChoose = () => {
       if (gamesIDs?.includes(gameIDInput)) {
         const game = games?.find((game) => game.id === gameIDInput);
 
-        if (!game?.settings.started && game!.players.length < 4) {
+        const numOfPlayers = Object.keys(game!?.players).length;
+
+        if (!game?.settings.started && numOfPlayers < 4) {
           firestore.doc(gameIDInput).update({
-            players: [
+            players: {
               ...game!.players,
-              {
-                name: usernameInput,
+              [usernameInput]: {
                 currentWord: 0,
                 errors: 0,
                 wpm: 0,
               },
-            ],
+            },
           });
 
           dispatch({
@@ -119,7 +122,7 @@ const RaceChoose = () => {
           });
 
           dispatch({ type: actions.RACE_STATE_JOINED });
-        } else alert("Sorry, game already in progress");
+        } else alert("Sorry, game is full or already in progress");
       } else alert("Couldnt find that gameID");
     } else alert("Invalid username or gameID");
   };

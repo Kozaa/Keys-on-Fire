@@ -38,6 +38,7 @@ const StyledLabel = styled.label<LabelProps>`
   position: absolute;
 
   display: flex;
+  flex-direction: column;
   align-items: center;
   justify-content: center;
 
@@ -53,9 +54,10 @@ const StyledLabel = styled.label<LabelProps>`
 
 interface Props {
   handleInputChange: (event: React.ChangeEvent<HTMLInputElement>) => void;
+  started: boolean;
 }
 
-const TextDisplay = ({ handleInputChange }: Props) => {
+const TextDisplay = ({ handleInputChange, started }: Props) => {
   const dispatch = useDispatch();
   const [isFocused, setIsFocused] = useState<boolean>(false);
   const endpoint = useSelector((state: AppState) => state.endpoint);
@@ -77,9 +79,15 @@ const TextDisplay = ({ handleInputChange }: Props) => {
     <StyledWrapper>
       <Text />
       <StyledLabel htmlFor="input" isFocused={isFocused}>
-        Click to focus
+        <span>Click to focus</span>
+        {raceState !== RaceStateEnum.CHOOSING ? (
+          <span style={{ fontSize: ".6em" }}>
+            Focus is disabled if the game is not started
+          </span>
+        ) : null}
       </StyledLabel>
       <StyledInput
+        disabled={raceState !== RaceStateEnum.CHOOSING && !started}
         ref={inputRef}
         onFocus={toggleFocus}
         onBlur={toggleFocus}
@@ -87,7 +95,8 @@ const TextDisplay = ({ handleInputChange }: Props) => {
         type="text"
         onChange={handleInputChange}
       />
-      {raceState === RaceStateEnum.JOINED ? null : (
+      {raceState === RaceStateEnum.JOINED ||
+      raceState === RaceStateEnum.HOST ? null : (
         <Reroll handleClick={handleReroll} />
       )}
     </StyledWrapper>

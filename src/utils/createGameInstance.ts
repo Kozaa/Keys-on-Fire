@@ -24,14 +24,13 @@ const createGameInstance = (
       text: words,
       started: false,
     },
-    players: [
-      {
-        name: username,
+    players: {
+      [username]: {
         currentWord: 0,
         errors: 0,
         wpm: 0,
       },
-    ],
+    },
   });
 };
 

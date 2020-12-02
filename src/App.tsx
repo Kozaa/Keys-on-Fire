@@ -5,6 +5,8 @@ import Header from "./components/Header";
 import Footer from "./components/Footer";
 import MainPractice from "./components/MainPractice";
 import MainRace from "./components/MainRace";
+import { useDispatch } from "react-redux";
+import * as actions from "./redux/actionTypes";
 
 const GlobalStyle = createGlobalStyle`
   *, *::after, *::before {
@@ -62,9 +64,13 @@ const GlobalStyle = createGlobalStyle`
 const App = () => {
   //false = practice | true = race
   const [page, setPage] = useState("Practice");
+  const dispatch = useDispatch();
 
   const handleSetPage = (newPage: string) => {
     setPage(newPage);
+    if (newPage === "Practice") {
+      dispatch({ type: actions.RACE_STATE_CHOOSING });
+    }
   };
 
   return (

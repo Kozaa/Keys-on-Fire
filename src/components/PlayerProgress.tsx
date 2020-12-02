@@ -10,19 +10,27 @@ const StyledWrapper = styled.div`
   justify-content: space-around;
 `;
 
+const Errors = styled.div`
+  width: 10%;
+  color: ${({ theme }) => theme.colors.red};
+`;
+
 interface Props {
   name: string;
   currentWord: number;
   wpm: number;
   errors: number;
+  started: boolean;
 }
 
-const PlayerProgress = ({ name, currentWord, wpm, errors }: Props) => {
+const PlayerProgress = ({ name, currentWord, wpm, errors, started }: Props) => {
   return (
     <StyledWrapper>
       <ProgressBar name={name} currentWord={currentWord} />
-      <div style={{ width: "20%" }}>{wpm} WPM</div>
-      <div style={{ width: "10%" }}>{errors}</div>
+      <div style={{ width: "20%" }}>
+        {started ? (wpm ? wpm + " WPM" : "typing...") : "-"}
+      </div>
+      <Errors>{errors}</Errors>
     </StyledWrapper>
   );
 };
