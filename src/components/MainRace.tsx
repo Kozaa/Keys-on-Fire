@@ -121,7 +121,7 @@ const MainRace: React.FC = () => {
   const renderSwitch = () => {
     switch (raceState) {
       case RaceStateEnum.CHOOSING:
-        return <RaceChoose />;
+        return <RaceChoose games={games!} />;
       case RaceStateEnum.HOST:
         return (
           <RaceDisplay
@@ -129,6 +129,7 @@ const MainRace: React.FC = () => {
             handleInputChange={handleInputChange}
             started={raceData.started}
             DBstarted={game?.settings.started!}
+            games={games!}
           />
         );
       case RaceStateEnum.JOINED:
@@ -138,6 +139,7 @@ const MainRace: React.FC = () => {
             handleInputChange={handleInputChange}
             started={raceData.started}
             DBstarted={game?.settings.started!}
+            games={games!}
           />
         );
     }

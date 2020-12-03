@@ -33,7 +33,11 @@ const H1 = styled.span`
   margin-left: 100px;
 `;
 
-const EndpointButtonsDisplay = () => {
+interface Props {
+  myRef: React.RefObject<HTMLInputElement>;
+}
+
+const EndpointButtonsDisplay = ({ myRef }: Props) => {
   const dispatch = useDispatch();
 
   const handleEndpointChange = (endpoint: string) => {
@@ -43,6 +47,7 @@ const EndpointButtonsDisplay = () => {
         endpoint: endpoint,
       },
     });
+    myRef.current!.focus();
   };
   const handleCommonWords = () => {
     dispatch({
@@ -58,6 +63,7 @@ const EndpointButtonsDisplay = () => {
         endpoint: "common words",
       },
     });
+    myRef.current!.focus();
   };
 
   return (

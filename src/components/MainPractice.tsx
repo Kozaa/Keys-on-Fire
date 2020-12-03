@@ -107,7 +107,7 @@ const MainPractice = () => {
         />
       ) : null}
       {/* <div>{games ? games[0].id : null}</div> */}
-      <EndpointButtonsDisplay />
+      <EndpointButtonsDisplay myRef={inputRef} />
     </StyledMainPractice>
   );
 };

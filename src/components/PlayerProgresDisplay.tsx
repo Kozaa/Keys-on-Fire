@@ -27,11 +27,15 @@ const StyledDiv = styled.div`
   font-family: ${({ theme }) => theme.font.secondary};
 `;
 
-const PlayerProgressDisplay = () => {
+interface Props {
+  games: FirestoreDataType[];
+}
+
+const PlayerProgressDisplay = ({ games }) => {
   const gameID = useSelector(
     (state: AppState) => state.raceData.connectedGameID
   );
-  const [games] = useCollectionData<FirestoreDataType>(firestore);
+
   const game = games?.find((game) => game.id === gameID);
   const playerKeys = game
     ? Object.keys(game!?.players).sort((a, b) => (a > b ? 1 : -1))

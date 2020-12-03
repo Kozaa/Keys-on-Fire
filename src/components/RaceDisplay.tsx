@@ -3,6 +3,7 @@ import styled from "styled-components";
 import TextDisplay from "./TextDisplay";
 import RaceButtons from "./RaceButtons";
 import PlayerProgressDisplay from "./PlayerProgresDisplay";
+import { FirestoreDataType } from "../utils/constatnts";
 
 const StyledWrapper = styled.main`
   width: 100%;
@@ -22,6 +23,7 @@ interface Props {
   started: boolean;
   DBstarted: boolean;
   handleInputChange: (e: React.ChangeEvent<HTMLInputElement>) => void;
+  games: FirestoreDataType[];
 }
 
 const RaceDisplay = ({
@@ -29,6 +31,7 @@ const RaceDisplay = ({
   handleInputChange,
   started,
   DBstarted,
+  games,
 }: Props) => {
   const inputRef = useRef<HTMLInputElement>(null);
 
@@ -42,8 +45,8 @@ const RaceDisplay = ({
         myRef={inputRef}
       />
       <LowerWrapper>
-        <PlayerProgressDisplay />
-        <RaceButtons host={host} myRef={inputRef} />
+        <PlayerProgressDisplay games={games} />
+        <RaceButtons host={host} myRef={inputRef} games={games} />
       </LowerWrapper>
     </StyledWrapper>
   );

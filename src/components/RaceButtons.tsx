@@ -26,13 +26,13 @@ const StyledSpan = styled.span`
 interface Props {
   host: boolean;
   myRef: React.RefObject<HTMLInputElement>;
+  games: FirestoreDataType[];
 }
 
-const RaceButtons = ({ host, myRef }: Props) => {
+const RaceButtons = ({ host, myRef, games }: Props) => {
   const [showTimer, setShowTimer] = useState(true);
   const raceData = useSelector((state: AppState) => state.raceData);
   const dispatch = useDispatch();
-  const [games] = useCollectionData<FirestoreDataType>(firestore);
   const game = games?.find((game) => game.id === raceData.connectedGameID);
 
   const handleStartRace = () => {

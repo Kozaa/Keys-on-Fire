@@ -60,12 +60,15 @@ const inlineButton1Style =
 const inlineButton2Style =
   window.innerWidth > 768 ? { gridRow: "5/6", gridColumn: "2/3" } : {};
 
-const RaceChoose = () => {
+interface Props {
+  games: FirestoreDataType[];
+}
+
+const RaceChoose = ({ games }: Props) => {
   const [usernameInput, setUsernameInput] = useState("");
   const [gameIDInput, setGameIDInput] = useState("");
   const dispatch = useDispatch();
   const words = useSelector((state: AppState) => state.words);
-  const [games] = useCollectionData<FirestoreDataType>(firestore);
 
   const handleUsernameChange = (e: React.ChangeEvent<HTMLInputElement>) => {
     if (e.target.value.length <= 10) {
