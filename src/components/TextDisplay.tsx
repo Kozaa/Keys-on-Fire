@@ -1,4 +1,4 @@
-import React, { useState, useRef } from "react";
+import React, { useState, useRef, useEffect } from "react";
 import styled from "styled-components";
 import { useDispatch, useSelector } from "react-redux";
 import Reroll from "../assets/Reroll";
@@ -55,52 +55,67 @@ const StyledLabel = styled.label<LabelProps>`
 interface Props {
   handleInputChange: (event: React.ChangeEvent<HTMLInputElement>) => void;
   started: boolean;
+  DBstarted?: boolean;
+  myRef?: React.RefObject<HTMLInputElement>;
 }
 
-const TextDisplay = ({ handleInputChange, started }: Props) => {
-  const dispatch = useDispatch();
-  const [isFocused, setIsFocused] = useState<boolean>(false);
-  const endpoint = useSelector((state: AppState) => state.endpoint);
-  const raceState = useSelector((state: AppState) => state.raceState);
-  const inputRef = useRef<HTMLInputElement>(null);
+const TextDisplay = React.forwardRef<HTMLInputElement, Props>(
+  ({ handleInputChange, started, DBstarted, myRef }, ref) => {
+    const dispatch = useDispatch();
+    const [isFocused, setIsFocused] = useState<boolean>(false);
+    const { endpoint, raceData, raceState } = useSelector(
+      (state: AppState) => state
+    );
 
-  const handleReroll = () => {
-    getData(dispatch, endpoint);
-    dispatch({ type: actions.GAME_RESET });
-    inputRef.current?.focus();
-    setIsFocused(true);
-  };
+    // const inputRef = useRef<HTMLInputElement>(null);
 
-  const toggleFocus = () => {
-    setIsFocused(!isFocused);
-  };
+    const handleReroll = () => {
+      getData(dispatch, endpoint);
+      dispatch({ type: actions.GAME_RESET });
+      if (myRef) {
+        console.log("ref focues");
+        myRef.current?.focus();
+      }
 
-  return (
-    <StyledWrapper>
-      <Text />
-      <StyledLabel htmlFor="input" isFocused={isFocused}>
-        <span>Click to focus</span>
-        {raceState !== RaceStateEnum.CHOOSING ? (
-          <span style={{ fontSize: ".6em" }}>
-            Focus is disabled if the game is not started
-          </span>
-        ) : null}
-      </StyledLabel>
-      <StyledInput
-        disabled={raceState !== RaceStateEnum.CHOOSING && !started}
-        ref={inputRef}
-        onFocus={toggleFocus}
-        onBlur={toggleFocus}
-        id="input"
-        type="text"
-        onChange={handleInputChange}
-      />
-      {raceState === RaceStateEnum.JOINED ||
-      raceState === RaceStateEnum.HOST ? null : (
-        <Reroll handleClick={handleReroll} />
-      )}
-    </StyledWrapper>
-  );
-};
+      setIsFocused(true);
+    };
+
+    const handleBlur = () => {
+      setIsFocused(false);
+    };
+
+    const handleFocus = () => {
+      setIsFocused(true);
+    };
+
+    // useEffect(() => {
+    //   if (raceData.started) {
+    //     setIsFocused(true);
+    //     inputRef.current!.focus();
+    //   }
+    //   console.log("i run");
+    // }, [DBstarted]);
+
+    return (
+      <StyledWrapper>
+        <Text />
+        <StyledLabel htmlFor="input" isFocused={isFocused}>
+          <span>Click to focus</span>
+        </StyledLabel>
+        <StyledInput
+          ref={ref}
+          onFocus={handleFocus}
+          onBlur={handleBlur}
+          id="input"
+          type="text"
+          onChange={handleInputChange}
+        />
+        {raceState === RaceStateEnum.JOINED ? null : (
+          <Reroll handleClick={handleReroll} />
+        )}
+      </StyledWrapper>
+    );
+  }
+);
 
 export default TextDisplay;

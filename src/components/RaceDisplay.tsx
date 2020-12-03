@@ -1,4 +1,4 @@
-import React from "react";
+import React, { useRef } from "react";
 import styled from "styled-components";
 import TextDisplay from "./TextDisplay";
 import RaceButtons from "./RaceButtons";
@@ -20,16 +20,30 @@ const LowerWrapper = styled.div`
 interface Props {
   host: boolean;
   started: boolean;
+  DBstarted: boolean;
   handleInputChange: (e: React.ChangeEvent<HTMLInputElement>) => void;
 }
 
-const RaceDisplay = ({ host, handleInputChange, started }: Props) => {
+const RaceDisplay = ({
+  host,
+  handleInputChange,
+  started,
+  DBstarted,
+}: Props) => {
+  const inputRef = useRef<HTMLInputElement>(null);
+
   return (
     <StyledWrapper>
-      <TextDisplay handleInputChange={handleInputChange} started={started} />
+      <TextDisplay
+        handleInputChange={handleInputChange}
+        DBstarted={DBstarted}
+        started={started}
+        ref={inputRef}
+        myRef={inputRef}
+      />
       <LowerWrapper>
         <PlayerProgressDisplay />
-        <RaceButtons host={host} />
+        <RaceButtons host={host} myRef={inputRef} />
       </LowerWrapper>
     </StyledWrapper>
   );

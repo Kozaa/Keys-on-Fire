@@ -70,6 +70,8 @@ const App = () => {
     setPage(newPage);
     if (newPage === "Practice") {
       dispatch({ type: actions.RACE_STATE_CHOOSING });
+    } else if (newPage === "Race") {
+      dispatch({ type: actions.GAME_RESET });
     }
   };
 

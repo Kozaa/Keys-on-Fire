@@ -1,4 +1,4 @@
-import React, { useEffect } from "react";
+import React, { useEffect, useRef } from "react";
 import styled from "styled-components";
 import { useDispatch, useSelector } from "react-redux";
 import getData from "../utils/getData";
@@ -17,6 +17,7 @@ const StyledMainPractice = styled.main`
 
 const MainPractice = () => {
   const dispatch = useDispatch();
+  const inputRef = useRef<HTMLInputElement>(null);
 
   const {
     words,
@@ -93,7 +94,12 @@ const MainPractice = () => {
 
   return (
     <StyledMainPractice>
-      <TextDisplay handleInputChange={handleInputChange} started={true} />
+      <TextDisplay
+        handleInputChange={handleInputChange}
+        started={true}
+        ref={inputRef}
+        myRef={inputRef}
+      />
       {calculateWPM(timer) ? (
         <ResultDisplay
           wpm={calculateWPM(timer)}

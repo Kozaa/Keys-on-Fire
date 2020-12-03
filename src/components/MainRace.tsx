@@ -35,7 +35,7 @@ const MainRace: React.FC = () => {
   ) => void = (e) => {
     const pressedKey = e.target.value.toLowerCase();
 
-    if (currentWord >= numberOfWords) {
+    if (currentWord >= numberOfWords || !raceData.started) {
       return;
     }
 
@@ -127,7 +127,8 @@ const MainRace: React.FC = () => {
           <RaceDisplay
             host={true}
             handleInputChange={handleInputChange}
-            started={game!?.settings.started}
+            started={raceData.started}
+            DBstarted={game?.settings.started!}
           />
         );
       case RaceStateEnum.JOINED:
@@ -135,7 +136,8 @@ const MainRace: React.FC = () => {
           <RaceDisplay
             host={false}
             handleInputChange={handleInputChange}
-            started={game!?.settings.started}
+            started={raceData.started}
+            DBstarted={game?.settings.started!}
           />
         );
     }
