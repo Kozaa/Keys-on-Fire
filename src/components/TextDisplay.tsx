@@ -7,6 +7,7 @@ import getData from "../utils/getData";
 import * as actions from "../redux/actionTypes";
 import { AppState } from "../redux/store";
 import { RaceStateEnum } from "../redux/reducers/raceStateReducer";
+import firestore from "../firebase";
 
 const StyledWrapper = styled.div`
   padding: 20px 0;
@@ -54,26 +55,37 @@ const StyledLabel = styled.label<LabelProps>`
 
 interface Props {
   handleInputChange: (event: React.ChangeEvent<HTMLInputElement>) => void;
-  started: boolean;
-  DBstarted?: boolean;
   myRef?: React.RefObject<HTMLInputElement>;
 }
 
 const TextDisplay = React.forwardRef<HTMLInputElement, Props>(
-  ({ handleInputChange, started, DBstarted, myRef }, ref) => {
+  ({ handleInputChange, myRef }, ref) => {
     const dispatch = useDispatch();
     const [isFocused, setIsFocused] = useState<boolean>(false);
     const { endpoint, raceData, raceState } = useSelector(
       (state: AppState) => state
     );
 
-    // const inputRef = useRef<HTMLInputElement>(null);
-
-    const handleReroll = () => {
+    const handlePracticeReroll = () => {
       getData(dispatch, endpoint);
       dispatch({ type: actions.GAME_RESET });
       if (myRef) {
-        console.log("ref focues");
+        myRef.current?.focus();
+      }
+
+      setIsFocused(true);
+    };
+
+    const handleRaceReroll = () => {
+      console.log("reroll");
+      getData(dispatch, endpoint).then((words) => {
+        firestore.doc(raceData.connectedGameID).update({
+          "settings.text": words,
+        });
+      });
+      //dispatch({ type: actions.GAME_RESET });
+
+      if (myRef) {
         myRef.current?.focus();
       }
 
@@ -111,7 +123,13 @@ const TextDisplay = React.forwardRef<HTMLInputElement, Props>(
           onChange={handleInputChange}
         />
         {raceState === RaceStateEnum.JOINED ? null : (
-          <Reroll handleClick={handleReroll} />
+          <Reroll
+            handleClick={
+              raceState === RaceStateEnum.CHOOSING
+                ? handlePracticeReroll
+                : handleRaceReroll
+            }
+          />
         )}
       </StyledWrapper>
     );

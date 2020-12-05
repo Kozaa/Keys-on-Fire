@@ -2,7 +2,6 @@ import React, { useEffect, useState } from "react";
 import styled from "styled-components";
 import Button from "./Button";
 import firestore from "../firebase";
-import { useCollectionData } from "react-firebase-hooks/firestore";
 import { useDispatch, useSelector } from "react-redux";
 import { AppState } from "../redux/store";
 import { FirestoreDataType } from "../utils/constatnts";
@@ -40,38 +39,41 @@ const RaceButtons = ({ host, myRef, games }: Props) => {
       "settings.started": true,
     });
 
-    // setTimeout(() => {
-    //   setShowTimer(false);
-    //   dispatch({ type: actions.RACE_DATA_STARTED });
-    // }, 5000);
-
-    myRef.current!.focus();
-
     console.log("start race");
   };
 
-  if (game?.settings.started && !raceData.started) {
+  if (game?.settings.started && !raceData.started && !raceData.startedPrev) {
+    myRef.current!.focus();
+    console.log("timeout started");
+
     setTimeout(() => {
-      setShowTimer(false);
+      //setShowTimer(false);
       dispatch({ type: actions.RACE_DATA_STARTED });
     }, 5000);
   }
 
   return (
     <StyledWrapper>
-      {/* <Button>Ready</Button> */}
+      {console.log(
+        "db: ",
+        game?.settings.started,
+        "now: ",
+        raceData.started,
+        "prev: ",
+        raceData.startedPrev
+      )}
 
       {host ? (
         !game?.settings.started ? (
           <Button handleClick={handleStartRace}>Start Race</Button>
-        ) : showTimer ? (
+        ) : !raceData.started ? (
           <TimerDisplay />
         ) : (
           <StyledSpan>GO!</StyledSpan>
         )
       ) : !game?.settings.started ? (
         <span>Waiting for the host to start the race...</span>
-      ) : showTimer ? (
+      ) : !raceData.started ? (
         <TimerDisplay />
       ) : (
         <StyledSpan>GO!</StyledSpan>

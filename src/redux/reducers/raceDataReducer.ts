@@ -4,13 +4,15 @@ type RaceDataType = {
   name: string;
   connectedGameID: string;
   started: boolean;
+  startedPrev: boolean;
 };
 
 type ActionType = {
   type:
     | typeof actions.RACE_DATA_UPDATE
     | typeof actions.RACE_DATA_STARTED
-    | typeof actions.RACE_DATA_STOPPED;
+    | typeof actions.RACE_DATA_STOPPED
+    | typeof actions.RACE_DATA_STARTED_RESET;
   payload: {
     name?: string;
     gameID?: string;
@@ -21,6 +23,7 @@ const initialState = {
   name: "",
   connectedGameID: "",
   started: false,
+  startedPrev: false,
 };
 
 const raceDataReducer = (
@@ -38,11 +41,19 @@ const raceDataReducer = (
       return {
         ...state,
         started: true,
+        startedPrev: state.started,
       };
     case actions.RACE_DATA_STOPPED:
       return {
         ...state,
         started: false,
+        startedPrev: state.started,
+      };
+    case actions.RACE_DATA_STARTED_RESET:
+      return {
+        ...state,
+        started: false,
+        startedPrev: false,
       };
     default:
       return state;

@@ -6,33 +6,43 @@ import { CommonWordSet, numberOfWords } from "./constatnts";
 const urlBase =
   "https://cors-anywhere.herokuapp.com/https://api.datamuse.com/words?ml=";
 
-const getData = (dispatch: Dispatch, endpoint: string) => {
+const getData = async (dispatch: Dispatch, endpoint: string) => {
   dispatch({ type: actions.TEXT_LOADING });
 
+  let finalWords: string[] = [];
+
   if (endpoint === "common words") {
+    finalWords = pickRandomItemsFromArr(CommonWordSet, numberOfWords);
+
     dispatch({
       type: actions.SET_WORD_SET,
       payload: {
-        words: pickRandomItemsFromArr(CommonWordSet, numberOfWords),
+        words: finalWords,
       },
     });
-    return;
+    return finalWords;
   }
 
   const url = urlBase + endpoint;
 
-  fetch(url)
+  await fetch(url)
     .then((res) => res.json())
     .then((data) => data.map((item) => item.word))
-    .then((data) => pickRandomItemsFromArr(data, numberOfWords))
-    .then((words: string[]) =>
+    .then((data) => {
+      const helperArr = pickRandomItemsFromArr(data, numberOfWords);
+      finalWords = helperArr;
+
+      return helperArr;
+    })
+    .then((words: string[]) => {
       dispatch({
         type: actions.TEXT_LOAD_SUCCESS,
         payload: {
           words,
         },
-      })
-    )
+      });
+      return words;
+    })
     .catch((err: { message: string }) => {
       console.log(err);
       dispatch({
@@ -42,6 +52,7 @@ const getData = (dispatch: Dispatch, endpoint: string) => {
         },
       });
     });
+  return finalWords;
 };
 
 export default getData;

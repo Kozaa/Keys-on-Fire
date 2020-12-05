@@ -10,6 +10,7 @@ import firestore from "../firebase";
 import calculateWPM from "../utils/calculateWPM";
 import { useCollectionData } from "react-firebase-hooks/firestore";
 import { FirestoreDataType, numberOfWords } from "../utils/constatnts";
+import { bindActionCreators } from "redux";
 
 const StyledMainRace = styled.main`
   width: 100%;
@@ -39,6 +40,11 @@ const MainRace: React.FC = () => {
       return;
     }
 
+    if (currentLetter === 0 && pressedKey === " ") {
+      e.target.value = "";
+      return;
+    }
+
     if (currentWord === 0 && currentLetter === 0) {
       console.log("reset");
       dispatch({ type: actions.RESET_FAILED_LETTERS });
@@ -51,11 +57,6 @@ const MainRace: React.FC = () => {
         type: actions.TIMER_START,
         payload: { now: new Date().getTime() },
       });
-    }
-
-    if (currentLetter === 0 && pressedKey === " ") {
-      e.target.value = "";
-      return;
     }
 
     if (
@@ -101,6 +102,25 @@ const MainRace: React.FC = () => {
     }
   }, [timer, currentWord]);
 
+  if (
+    game?.settings.text &&
+    game?.settings.text.toString() !== words.toString()
+  ) {
+    firestore.doc(raceData.connectedGameID).update({
+      "settings.started": false,
+    });
+    dispatch({
+      type: actions.SET_WORD_SET,
+      payload: {
+        words: game?.settings.text,
+      },
+    });
+    dispatch({ type: actions.GAME_RESET });
+    if (raceState === RaceStateEnum.JOINED) {
+      dispatch({ type: actions.RACE_DATA_STARTED_RESET });
+    } else dispatch({ type: actions.RACE_DATA_STOPPED });
+  }
+
   // useEffect(() => {  << update text on host change attempt
   //   if (game?.settings.text && raceData.connectedGameID) {
   //     firestore.doc(raceData.connectedGameID).update({
@@ -127,8 +147,6 @@ const MainRace: React.FC = () => {
           <RaceDisplay
             host={true}
             handleInputChange={handleInputChange}
-            started={raceData.started}
-            DBstarted={game?.settings.started!}
             games={games!}
           />
         );
@@ -137,8 +155,6 @@ const MainRace: React.FC = () => {
           <RaceDisplay
             host={false}
             handleInputChange={handleInputChange}
-            started={raceData.started}
-            DBstarted={game?.settings.started!}
             games={games!}
           />
         );

@@ -96,7 +96,6 @@ const MainPractice = () => {
     <StyledMainPractice>
       <TextDisplay
         handleInputChange={handleInputChange}
-        started={true}
         ref={inputRef}
         myRef={inputRef}
       />

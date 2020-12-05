@@ -20,27 +20,17 @@ const LowerWrapper = styled.div`
 
 interface Props {
   host: boolean;
-  started: boolean;
-  DBstarted: boolean;
   handleInputChange: (e: React.ChangeEvent<HTMLInputElement>) => void;
   games: FirestoreDataType[];
 }
 
-const RaceDisplay = ({
-  host,
-  handleInputChange,
-  started,
-  DBstarted,
-  games,
-}: Props) => {
+const RaceDisplay = ({ host, handleInputChange, games }: Props) => {
   const inputRef = useRef<HTMLInputElement>(null);
 
   return (
     <StyledWrapper>
       <TextDisplay
         handleInputChange={handleInputChange}
-        DBstarted={DBstarted}
-        started={started}
         ref={inputRef}
         myRef={inputRef}
       />
