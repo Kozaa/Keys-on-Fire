@@ -12,5 +12,3 @@ firebase.initializeApp({
 });
 
 export default firebase.firestore().collection("games");
-
-// import { useCollectionData } from "react-firebase-hooks/firestore";

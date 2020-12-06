@@ -33,6 +33,7 @@ const RaceDisplay = ({ host, handleInputChange, games }: Props) => {
         handleInputChange={handleInputChange}
         ref={inputRef}
         myRef={inputRef}
+        games={games}
       />
       <LowerWrapper>
         <PlayerProgressDisplay games={games} />

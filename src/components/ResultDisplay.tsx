@@ -17,7 +17,7 @@ interface Props {
   errorCount: number;
 }
 
-const ResultDisplay: React.FC<Props> = ({ wpm, errorCount }) => (
+const ResultDisplay = ({ wpm, errorCount }: Props) => (
   <StyledResult>
     <div>
       <span>Speed: </span>

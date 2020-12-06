@@ -8,7 +8,6 @@ import * as actions from "../redux/actionTypes";
 import calculateWPM from "../utils/calculateWPM";
 import ResultDisplay from "./ResultDisplay";
 import EndpointButtonsDisplay from "./EndpointButtonsDisplay";
-import { numberOfWords } from "../utils/constatnts";
 
 const StyledMainPractice = styled.main`
   width: 100%;
@@ -34,13 +33,12 @@ const MainPractice = () => {
     const pressedKey = e.target.value.toLowerCase();
 
     if (currentWord === 0 && currentLetter === 0) {
-      console.log("reset");
       dispatch({ type: actions.RESET_FAILED_LETTERS });
       dispatch({
         type: actions.TIMER_RESET,
         payload: { now: new Date().getTime() },
       });
-      console.log("start");
+
       dispatch({
         type: actions.TIMER_START,
         payload: { now: new Date().getTime() },
@@ -60,7 +58,7 @@ const MainPractice = () => {
       getData(dispatch, endpoint);
       dispatch({ type: actions.RESET_WORD });
       dispatch({ type: actions.RESET_LETTER });
-      console.log("stop");
+
       dispatch({
         type: actions.TIMER_STOP,
         payload: { now: new Date().getTime() },
@@ -105,7 +103,6 @@ const MainPractice = () => {
           errorCount={failedLetters.length}
         />
       ) : null}
-      {/* <div>{games ? games[0].id : null}</div> */}
       <EndpointButtonsDisplay myRef={inputRef} />
     </StyledMainPractice>
   );

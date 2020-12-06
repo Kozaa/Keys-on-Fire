@@ -1,8 +1,6 @@
 import React from "react";
 import styled from "styled-components";
 import PlayerProgress from "./PlayerProgress";
-import firestore from "../firebase";
-import { useCollectionData } from "react-firebase-hooks/firestore";
 import { FirestoreDataType } from "../utils/constatnts";
 import { useSelector } from "react-redux";
 import { AppState } from "../redux/store";
@@ -31,7 +29,7 @@ interface Props {
   games: FirestoreDataType[];
 }
 
-const PlayerProgressDisplay = ({ games }) => {
+const PlayerProgressDisplay = ({ games }: Props) => {
   const gameID = useSelector(
     (state: AppState) => state.raceData.connectedGameID
   );

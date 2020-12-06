@@ -19,52 +19,6 @@ export type FirestoreDataType = {
   };
 };
 
-export const dummyData = {
-  XQR2A: {
-    setting: {
-      started: false,
-      text: [
-        "be",
-        "will",
-        "come",
-        "ready",
-        "many",
-        "around",
-        "well",
-        "then",
-        "give",
-        "out",
-        "while",
-        "move",
-        "the",
-        "a",
-        "should",
-        "back",
-        "she",
-        "you",
-        "no",
-        "may",
-      ],
-    },
-    players: [
-      {
-        name: "John",
-        currentWord: 2,
-        errors: 4,
-        wpm: 22.32,
-        ready: false,
-      },
-      {
-        name: "Adam",
-        currentWord: 6,
-        errors: 2,
-        wpm: 19.34,
-        ready: true,
-      },
-    ],
-  },
-};
-
 export const CommonWordSet = [
   "be",
   "will",

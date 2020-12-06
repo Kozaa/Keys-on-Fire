@@ -3,13 +3,10 @@ import { useDispatch, useSelector } from "react-redux";
 import * as actions from "../redux/actionTypes";
 import styled from "styled-components";
 import Button from "./Button";
-import { dummyData } from "../utils/constatnts";
 import createGameInstance from "../utils/createGameInstance";
 import firestore from "../firebase";
 import { AppState } from "../redux/store";
-import { useCollectionData } from "react-firebase-hooks/firestore";
 import { FirestoreDataType } from "../utils/constatnts";
-import PlayerProgress from "./PlayerProgress";
 
 const StyledWrapper = styled.div`
   width: 100%;
@@ -89,9 +86,6 @@ const RaceChoose = ({ games }: Props) => {
 
   const handleJoinGame = () => {
     if (usernameInput && gameIDInput) {
-      //check if game id exzist
-      //send name to database
-
       const gamesIDs = games?.map((game) => game.id);
 
       if (gamesIDs?.includes(gameIDInput)) {
@@ -123,6 +117,8 @@ const RaceChoose = ({ games }: Props) => {
               gameID: gameIDInput,
             },
           });
+
+          dispatch({ type: actions.RACE_DATA_STARTED_RESET });
 
           dispatch({ type: actions.RACE_STATE_JOINED });
         } else alert("Sorry, game is full or already in progress");

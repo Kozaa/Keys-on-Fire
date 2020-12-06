@@ -1,4 +1,4 @@
-import React, { useState, useRef, useEffect } from "react";
+import React, { useState } from "react";
 import styled from "styled-components";
 import { useDispatch, useSelector } from "react-redux";
 import Reroll from "../assets/Reroll";
@@ -8,6 +8,7 @@ import * as actions from "../redux/actionTypes";
 import { AppState } from "../redux/store";
 import { RaceStateEnum } from "../redux/reducers/raceStateReducer";
 import firestore from "../firebase";
+import { FirestoreDataType } from "../utils/constatnts";
 
 const StyledWrapper = styled.div`
   padding: 20px 0;
@@ -56,15 +57,17 @@ const StyledLabel = styled.label<LabelProps>`
 interface Props {
   handleInputChange: (event: React.ChangeEvent<HTMLInputElement>) => void;
   myRef?: React.RefObject<HTMLInputElement>;
+  games?: FirestoreDataType[];
 }
 
 const TextDisplay = React.forwardRef<HTMLInputElement, Props>(
-  ({ handleInputChange, myRef }, ref) => {
+  ({ handleInputChange, myRef, games }, ref) => {
     const dispatch = useDispatch();
     const [isFocused, setIsFocused] = useState<boolean>(false);
     const { endpoint, raceData, raceState } = useSelector(
       (state: AppState) => state
     );
+    const game = games?.find((game) => game.id === raceData.connectedGameID);
 
     const handlePracticeReroll = () => {
       getData(dispatch, endpoint);
@@ -77,19 +80,20 @@ const TextDisplay = React.forwardRef<HTMLInputElement, Props>(
     };
 
     const handleRaceReroll = () => {
-      console.log("reroll");
-      getData(dispatch, endpoint).then((words) => {
-        firestore.doc(raceData.connectedGameID).update({
-          "settings.text": words,
+      if (game?.settings.started === raceData.started) {
+        console.log("reroll");
+        getData(dispatch, endpoint).then((words) => {
+          firestore.doc(raceData.connectedGameID).update({
+            "settings.text": words,
+          });
         });
-      });
-      //dispatch({ type: actions.GAME_RESET });
 
-      if (myRef) {
-        myRef.current?.focus();
-      }
+        if (myRef) {
+          myRef.current?.focus();
+        }
 
-      setIsFocused(true);
+        setIsFocused(true);
+      } else return;
     };
 
     const handleBlur = () => {
@@ -99,14 +103,6 @@ const TextDisplay = React.forwardRef<HTMLInputElement, Props>(
     const handleFocus = () => {
       setIsFocused(true);
     };
-
-    // useEffect(() => {
-    //   if (raceData.started) {
-    //     setIsFocused(true);
-    //     inputRef.current!.focus();
-    //   }
-    //   console.log("i run");
-    // }, [DBstarted]);
 
     return (
       <StyledWrapper>

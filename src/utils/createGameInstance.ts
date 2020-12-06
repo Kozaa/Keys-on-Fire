@@ -18,6 +18,8 @@ const createGameInstance = (
     },
   });
 
+  dispatch({ type: actions.RACE_DATA_STARTED_RESET });
+
   firestore.doc(gameID).set({
     id: gameID,
     settings: {

@@ -62,7 +62,6 @@ const GlobalStyle = createGlobalStyle`
 `;
 
 const App = () => {
-  //false = practice | true = race
   const [page, setPage] = useState("Practice");
   const dispatch = useDispatch();
 
