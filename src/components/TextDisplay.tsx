@@ -81,7 +81,6 @@ const TextDisplay = React.forwardRef<HTMLInputElement, Props>(
 
     const handleRaceReroll = () => {
       if (game?.settings.started === raceData.started) {
-        console.log("reroll");
         getData(dispatch, endpoint).then((words) => {
           firestore.doc(raceData.connectedGameID).update({
             "settings.text": words,

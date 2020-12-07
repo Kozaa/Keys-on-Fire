@@ -135,7 +135,7 @@ const RaceChoose = ({ games }: Props) => {
         onChange={handleUsernameChange}
         value={usernameInput}
       />
-      <span>gameID</span>
+      <span>game ID</span>
       <StyledInput2
         type="text"
         placeholder="ex. H3GA1"

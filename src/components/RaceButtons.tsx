@@ -51,14 +51,6 @@ const RaceButtons = ({ host, myRef, games }: Props) => {
 
   return (
     <StyledWrapper>
-      {console.log(
-        "db: ",
-        game?.settings.started,
-        "started: ",
-        raceData.started,
-        "prev: ",
-        raceData.startedPrev
-      )}
       {host ? (
         !game?.settings.started ? (
           <Button handleClick={handleStartRace}>Start Race</Button>

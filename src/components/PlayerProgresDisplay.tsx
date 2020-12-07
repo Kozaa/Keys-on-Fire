@@ -42,7 +42,7 @@ const PlayerProgressDisplay = ({ games }: Props) => {
   return (
     <StyledWrapper>
       <StyledDiv>
-        <div style={{ width: "70%", textAlign: "left" }}>gameID: {gameID}</div>
+        <div style={{ width: "70%", textAlign: "left" }}>game ID: {gameID}</div>
         <div style={{ width: "20%" }}>speed</div>
         <div style={{ width: "10%" }}>errors</div>
       </StyledDiv>
