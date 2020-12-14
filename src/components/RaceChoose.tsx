@@ -1,12 +1,13 @@
-import React, { useState } from "react";
+import React, { useEffect, useLayoutEffect, useState } from "react";
 import { useDispatch, useSelector } from "react-redux";
 import * as actions from "../redux/actionTypes";
 import styled from "styled-components";
 import Button from "./Button";
 import createGameInstance from "../utils/createGameInstance";
+import { FirestoreDataType } from "../utils/constatnts";
+import useWindowSize from "../utils/useWindowSize";
 import firestore from "../firebase";
 import { AppState } from "../redux/store";
-import { FirestoreDataType } from "../utils/constatnts";
 
 const StyledWrapper = styled.div`
   width: 100%;
@@ -52,11 +53,6 @@ const StyledSpan = styled.span`
   }
 `;
 
-const inlineButton1Style =
-  window.innerWidth > 768 ? { gridRow: "5/6", gridColumn: "1/2" } : {};
-const inlineButton2Style =
-  window.innerWidth > 768 ? { gridRow: "5/6", gridColumn: "2/3" } : {};
-
 interface Props {
   games: FirestoreDataType[];
 }
@@ -66,6 +62,12 @@ const RaceChoose = ({ games }: Props) => {
   const [gameIDInput, setGameIDInput] = useState("");
   const dispatch = useDispatch();
   const words = useSelector((state: AppState) => state.words);
+  const [windowWidth] = useWindowSize();
+
+  let inlineButton1Style =
+    windowWidth > 768 ? { gridRow: "5/6", gridColumn: "1/2" } : {};
+  let inlineButton2Style =
+    windowWidth > 768 ? { gridRow: "5/6", gridColumn: "2/3" } : {};
 
   const handleUsernameChange = (e: React.ChangeEvent<HTMLInputElement>) => {
     if (e.target.value.length <= 10) {

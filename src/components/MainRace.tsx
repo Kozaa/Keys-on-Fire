@@ -107,6 +107,7 @@ const MainRace: React.FC = () => {
       firestore.doc(raceData.connectedGameID).update({
         "settings.started": false,
       });
+
       dispatch({
         type: actions.SET_WORD_SET,
         payload: {
