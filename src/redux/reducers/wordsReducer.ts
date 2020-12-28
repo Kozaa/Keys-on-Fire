@@ -26,7 +26,7 @@ const wordsReducer = (
       return action.payload.words!;
 
     case actions.TEXT_LOAD_FAILURE:
-      return [action.payload.err!.message];
+      return [`Sorry, something went wrong (${action.payload.err!.message})`];
 
     case actions.SET_WORD_SET:
       return action.payload.words!;
