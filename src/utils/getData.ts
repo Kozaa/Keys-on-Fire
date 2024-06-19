@@ -3,7 +3,7 @@ import { Dispatch } from "redux";
 import pickRandomItemsFromArr from "./pickRandomItemsFormArr";
 import { CommonWordSet, numberOfWords } from "./constatnts";
 
-const urlBase = "https://keys-on-fire-proxy.herokuapp.com/";
+const urlBase = "https://keys-on-fire-proxy.onrender.com/";
 
 const getData = async (dispatch: Dispatch, endpoint: string) => {
   dispatch({ type: actions.TEXT_LOADING });
