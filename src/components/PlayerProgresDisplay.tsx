@@ -22,7 +22,7 @@ const StyledDiv = styled.div`
   display: flex;
   align-items: center;
   justify-content: space-around;
-  font-family: ${({ theme }) => theme.font.secondary};
+  font-family: ${({ theme }) => theme.font.primary};
 `;
 
 interface Props {

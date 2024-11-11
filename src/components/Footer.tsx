@@ -11,7 +11,7 @@ const StyledFooter = styled.footer`
   align-items: center;
   justify-content: center;
 
-  font-family: ${({ theme }) => theme.font.secondary};
+  font-family: ${({ theme }) => theme.font.primary};
   font-size: 0.6em;
   text-align: center;
   background-color: black;

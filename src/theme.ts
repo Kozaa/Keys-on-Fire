@@ -2,8 +2,7 @@ import { DefaultTheme } from "styled-components";
 
 const Theme: DefaultTheme = {
   font: {
-    primary: "'Epilogue', sans-serif",
-    secondary: "'Montserrat', sans-serif",
+    primary: "'Inter', sans-serif",
   },
 
   colors: {
