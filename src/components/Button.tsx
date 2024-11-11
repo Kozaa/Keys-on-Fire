@@ -2,7 +2,7 @@ import React from "react";
 import styled from "styled-components";
 
 const StyledButton = styled.button`
-  background-color: ${({ theme }) => theme.colors.secondaryDark};
+  background-color: ${({ theme }) => theme.colors.primary};
   padding: 30px 50px;
 
   :hover {

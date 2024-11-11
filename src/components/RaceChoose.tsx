@@ -32,7 +32,7 @@ const StyledWrapper = styled.div`
 const StyledInput = styled.input`
   padding: 10px;
   grid-column: 1/3;
-  background-color: ${({ theme }) => theme.colors.secondaryDark};
+  background-color: ${({ theme }) => theme.colors.primary};
   text-align: center;
 
   @media screen and (max-width: 768px) {

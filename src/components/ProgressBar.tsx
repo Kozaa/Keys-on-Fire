@@ -5,7 +5,7 @@ const StyledWrapper = styled.div`
   width: 70%;
   height: 100%;
   position: relative;
-  background-color: ${({ theme }) => theme.colors.secondaryDark};
+  background-color: ${({ theme }) => theme.colors.primary};
 `;
 
 interface ColoredBarProps {

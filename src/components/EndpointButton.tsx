@@ -11,7 +11,7 @@ interface ButtonProps {
 const StyledButton = styled.button<ButtonProps>`
   width: 90%;
   height: 100%;
-  background-color: ${({ theme }) => theme.colors.secondaryDark};
+  background-color: ${({ theme }) => theme.colors.primary};
   padding: 25px 10px;
   border: ${({ theme, currentEndpoint, currentButton }) =>
     currentEndpoint === currentButton

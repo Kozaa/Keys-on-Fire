@@ -20,7 +20,7 @@ const StyledWrapper = styled.div`
   position: relative;
 
   line-height: 1.3em;
-  background-color: ${({ theme }) => theme.colors.secondaryDark};
+  background-color: ${({ theme }) => theme.colors.primary};
 `;
 
 const StyledInput = styled.input`

@@ -4,7 +4,7 @@ import styled from "styled-components";
 const StyledNavButton = styled.button`
   width: 20%;
   height: 50%;
-  background-color: ${({ theme }) => theme.colors.secondaryDark};
+  background-color: ${({ theme }) => theme.colors.primary};
   padding: 20px 10px;
 
   :hover {

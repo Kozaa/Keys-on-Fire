@@ -20,7 +20,7 @@ const GlobalStyle = createGlobalStyle`
     width: 100%;
 
 
-    background-color: ${({ theme }) => theme.colors.primaryDark};
+    background-color: ${({ theme }) => theme.colors.background};
     color: ${({ theme }) => theme.colors.text};
 
     font-family: ${({ theme }) => theme.font.primary};
