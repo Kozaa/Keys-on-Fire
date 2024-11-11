@@ -12,6 +12,8 @@ declare module "styled-components" {
       grey: string;
       red: string;
       text: string;
+      white: string;
+      textSecondary: string;
     };
   }
 }

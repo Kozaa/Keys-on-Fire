@@ -13,7 +13,7 @@ import { FirestoreDataType, numberOfWords } from "../utils/constatnts";
 
 const StyledMainRace = styled.main`
   width: 100%;
-  height: 70vh;
+  margin-top: 100px;
 `;
 
 const MainRace: React.FC = () => {
@@ -31,7 +31,7 @@ const MainRace: React.FC = () => {
   const dispatch = useDispatch();
 
   const handleInputChange: (
-    event: React.ChangeEvent<HTMLInputElement>
+    event: React.ChangeEvent<HTMLInputElement>,
   ) => void = (e) => {
     const pressedKey = e.target.value.toLowerCase();
 
@@ -121,30 +121,18 @@ const MainRace: React.FC = () => {
     }
   }, [games, words]);
 
-  const renderSwitch = () => {
-    switch (raceState) {
-      case RaceStateEnum.CHOOSING:
-        return <RaceChoose games={games!} />;
-      case RaceStateEnum.HOST:
-        return (
-          <RaceDisplay
-            host={true}
-            handleInputChange={handleInputChange}
-            games={games!}
-          />
-        );
-      case RaceStateEnum.JOINED:
-        return (
-          <RaceDisplay
-            host={false}
-            handleInputChange={handleInputChange}
-            games={games!}
-          />
-        );
-    }
-  };
+  const raceComponent =
+    raceState === RaceStateEnum.CHOOSING ? (
+      <RaceChoose games={games!} />
+    ) : (
+      <RaceDisplay
+        host={raceState === RaceStateEnum.HOST}
+        handleInputChange={handleInputChange}
+        games={games!}
+      />
+    );
 
-  return <StyledMainRace>{renderSwitch()}</StyledMainRace>;
+  return <StyledMainRace>{raceComponent}</StyledMainRace>;
 };
 
 export default MainRace;
