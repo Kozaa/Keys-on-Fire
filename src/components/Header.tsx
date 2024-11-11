@@ -4,20 +4,15 @@ import NavButton from "./NavButton";
 import Logo from "../assets/Logo";
 
 const StyledHeader = styled.header`
-  width: 70%;
-  height: 25vh;
-
+  width: 100%;
+  padding: 32px 64px;
   display: flex;
   align-items: center;
-  justify-content: space-around;
+  justify-content: space-between;
 
   @media screen and (max-width: 768px) {
-    width: 100%;
-    display: grid;
-    align-items: center;
-    justify-items: center;
-    grid-template-columns: 1fr 1fr;
-    grid-template-rows: 2fr 1fr;
+    padding: 8px 16px;
+    flex-direction: column;
   }
 `;
 
@@ -28,12 +23,13 @@ interface Props {
 
 const Header = ({ handleSetPage, page }: Props) => (
   <StyledHeader>
-    <NavButton handleSetPage={handleSetPage} selected={page === "Practice"}>
-      Practice
-    </NavButton>
     <Logo />
-    <NavButton handleSetPage={handleSetPage} selected={page === "Race"}>
-      Race
+    <NavButton
+      handleSetPage={() =>
+        handleSetPage(page === "Practice" ? "Race" : "Practice")
+      }
+    >
+      {page === "Practice" ? "race mode" : "practice mode"}
     </NavButton>
   </StyledHeader>
 );
