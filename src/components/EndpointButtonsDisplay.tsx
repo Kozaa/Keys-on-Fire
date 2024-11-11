@@ -8,29 +8,19 @@ import pickRandomItemsFromArr from "../utils/pickRandomItemsFormArr";
 import { CommonWordSet, numberOfWords } from "../utils/constatnts";
 
 const StyledWrapper = styled.div`
-  height: 30vh;
   width: 100%;
-  padding: 20px;
+  padding: 24px;
+  display: flex;
+  justify-content: center;
 `;
 
 const ButtonsWrapper = styled.div`
   padding: 10px 0;
-  display: grid;
-  grid-template-columns: repeat(6, 1fr);
-  grid-template-rows: auto;
-  grid-gap: 10px;
+  display: flex;
   align-items: center;
   align-content: center;
   justify-items: center;
-
-  @media screen and (max-width: 768px) {
-    grid-template-columns: 1fr 1fr;
-  }
-`;
-
-const H1 = styled.span`
-  font-size: 0.7em;
-  margin-left: 100px;
+  gap: 24px;
 `;
 
 interface Props {
@@ -68,7 +58,6 @@ const EndpointButtonsDisplay = ({ myRef }: Props) => {
 
   return (
     <StyledWrapper>
-      <H1>Word set:</H1>
       <ButtonsWrapper>
         {Endpoints.map((endpoint) => (
           <EndpointButton

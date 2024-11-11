@@ -1,6 +1,6 @@
 import React from "react";
 import styled from "styled-components";
-import NavButton from "./NavButton";
+import ActionText from "./ActionText";
 import Logo from "../assets/Logo";
 
 const StyledHeader = styled.header`
@@ -24,13 +24,13 @@ interface Props {
 const Header = ({ handleSetPage, page }: Props) => (
   <StyledHeader>
     <Logo />
-    <NavButton
-      handleSetPage={() =>
+    <ActionText
+      handleClick={() =>
         handleSetPage(page === "Practice" ? "Race" : "Practice")
       }
     >
       {page === "Practice" ? "race mode" : "practice mode"}
-    </NavButton>
+    </ActionText>
   </StyledHeader>
 );
 

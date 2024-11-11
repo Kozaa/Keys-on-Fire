@@ -12,6 +12,13 @@ const StyledResult = styled.div`
   justify-content: space-around;
 `;
 
+const StyledStat = styled.div`
+  display: flex;
+  gap: 8px;
+  flex-direction: column;
+  align-items: center;
+`;
+
 interface Props {
   wpm: string | null;
   errorCount: number;
@@ -19,22 +26,22 @@ interface Props {
 
 const ResultDisplay = ({ wpm, errorCount }: Props) => (
   <StyledResult>
-    <div>
-      <span>Speed: </span>
-      <span style={{ fontSize: "1.5em", fontWeight: "bold" }}>{wpm} WPM</span>
-    </div>
-    <div>
-      <span>Errors: </span>
+    <StyledStat>
+      <span>Speed</span>
+      <span style={{ fontSize: "32px", fontWeight: "bold" }}>{wpm} WPM</span>
+    </StyledStat>
+
+    <StyledStat>
+      <span>Mistakes</span>
       <span
         style={{
-          color: Theme.colors.red,
-          marginLeft: "10px",
-          fontSize: "1.2em",
+          fontSize: "32px",
+          fontWeight: "bold",
         }}
       >
         {errorCount}
       </span>
-    </div>
+    </StyledStat>
   </StyledResult>
 );
 

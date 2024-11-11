@@ -11,7 +11,7 @@ import EndpointButtonsDisplay from "./EndpointButtonsDisplay";
 
 const StyledMainPractice = styled.main`
   width: 100%;
-  height: 70vh;
+  margin-top: 100px;
 `;
 
 const MainPractice = () => {
@@ -92,6 +92,7 @@ const MainPractice = () => {
 
   return (
     <StyledMainPractice>
+      <EndpointButtonsDisplay myRef={inputRef} />
       <TextDisplay
         handleInputChange={handleInputChange}
         ref={inputRef}
@@ -103,7 +104,6 @@ const MainPractice = () => {
           errorCount={failedLetters.length}
         />
       ) : null}
-      <EndpointButtonsDisplay myRef={inputRef} />
     </StyledMainPractice>
   );
 };

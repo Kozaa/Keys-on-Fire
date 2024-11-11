@@ -11,8 +11,17 @@ import firestore from "../firebase";
 import { FirestoreDataType } from "../utils/constatnts";
 
 const StyledWrapper = styled.div`
+  display: flex;
+  flex-direction: column;
+  align-items: center;
+  justify-content: center;
+  gap: 24px;
+`;
+
+const StyledTextWrapper = styled.div`
   padding: 20px 0;
   min-height: 20%;
+  width: 100%;
 
   display: flex;
   align-items: center;
@@ -20,7 +29,7 @@ const StyledWrapper = styled.div`
   position: relative;
 
   line-height: 1.3em;
-  background-color: ${({ theme }) => theme.colors.primary};
+  background-color: ${({ theme }) => theme.colors.secondary};
 `;
 
 const StyledInput = styled.input`
@@ -44,12 +53,13 @@ const StyledLabel = styled.label<LabelProps>`
   align-items: center;
   justify-content: center;
 
-  font-size: 2em;
+  font-size: 1.2em;
 
   color: ${({ theme }) => theme.colors.red};
-  background-color: rgba(0, 0, 0, 0.8);
+  background-color: rgba(0, 0, 0, 0.2);
 
   opacity: ${({ isFocused }) => (isFocused ? 0 : 1)};
+  filter: none;
 
   transition: opacity 0.3s ease-in-out;
 `;
@@ -65,7 +75,7 @@ const TextDisplay = React.forwardRef<HTMLInputElement, Props>(
     const dispatch = useDispatch();
     const [isFocused, setIsFocused] = useState<boolean>(false);
     const { endpoint, raceData, raceState } = useSelector(
-      (state: AppState) => state
+      (state: AppState) => state,
     );
     const game = games?.find((game) => game.id === raceData.connectedGameID);
 
@@ -105,18 +115,20 @@ const TextDisplay = React.forwardRef<HTMLInputElement, Props>(
 
     return (
       <StyledWrapper>
-        <Text />
-        <StyledLabel htmlFor="input" isFocused={isFocused}>
-          <span>Click to focus</span>
-        </StyledLabel>
-        <StyledInput
-          ref={ref}
-          onFocus={handleFocus}
-          onBlur={handleBlur}
-          id="input"
-          type="text"
-          onChange={handleInputChange}
-        />
+        <StyledTextWrapper>
+          <Text isFocused={isFocused} />
+          <StyledLabel htmlFor="input" isFocused={isFocused}>
+            <span>click to focus</span>
+          </StyledLabel>
+          <StyledInput
+            ref={ref}
+            onFocus={handleFocus}
+            onBlur={handleBlur}
+            id="input"
+            type="text"
+            onChange={handleInputChange}
+          />
+        </StyledTextWrapper>
         {raceState === RaceStateEnum.JOINED ? null : (
           <Reroll
             handleClick={
@@ -128,7 +140,7 @@ const TextDisplay = React.forwardRef<HTMLInputElement, Props>(
         )}
       </StyledWrapper>
     );
-  }
+  },
 );
 
 export default TextDisplay;

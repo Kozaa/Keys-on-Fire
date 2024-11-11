@@ -4,17 +4,18 @@ import Word from "./Word";
 import { useSelector } from "react-redux";
 import { AppState } from "../redux/store";
 
-const StyledWrapper = styled.div`
+const StyledWrapper = styled.div<{ isFocused: boolean }>`
   width: 60%;
   position: relative;
   text-align: justify;
+  filter: blur(${({ isFocused }) => (isFocused ? 0 : 20)}px);
 `;
 
-const Text = () => {
+const Text = ({ isFocused }: { isFocused: boolean }) => {
   const words = useSelector((state: AppState) => state.words);
 
   return (
-    <StyledWrapper>
+    <StyledWrapper isFocused={isFocused}>
       {typeof words === "string" ? (
         <div>loading...</div>
       ) : (

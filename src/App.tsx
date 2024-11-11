@@ -33,10 +33,11 @@ const GlobalStyle = createGlobalStyle`
 
   #root {
     width: 100%;
+    height: 100%;
     
     display: flex;
     flex-direction: column;
-    align-items: center;
+    justify-content: space-between;
   }
 
   button, input {
@@ -86,8 +87,10 @@ const App = () => {
       <ThemeProvider theme={Theme}>
         <GlobalStyle />
 
-        <Header handleSetPage={handleSetPage} page={page} />
-        {page === "Practice" ? <MainPractice /> : <MainRace />}
+        <div>
+          <Header handleSetPage={handleSetPage} page={page} />
+          {page === "Practice" ? <MainPractice /> : <MainRace />}
+        </div>
 
         <Footer />
       </ThemeProvider>

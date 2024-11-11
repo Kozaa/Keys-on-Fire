@@ -1,24 +1,19 @@
 import React from "react";
 import { useSelector } from "react-redux";
-import styled, { css } from "styled-components";
+import styled from "styled-components";
 import { AppState } from "../redux/store";
 
 interface ButtonProps {
-  currentEndpoint: string;
-  currentButton: string;
+  selected: boolean;
 }
 
 const StyledButton = styled.button<ButtonProps>`
-  width: 90%;
-  height: 100%;
-  background-color: ${({ theme }) => theme.colors.primary};
-  padding: 25px 10px;
-  border: ${({ theme, currentEndpoint, currentButton }) =>
-    currentEndpoint === currentButton
-      ? css`2px solid ${theme.colors.red}`
-      : "none"};
+  background-color: ${({ theme, selected }) =>
+    selected ? theme.colors.primary : theme.colors.background};
+  border-radius: 8px;
+  padding: 8px 16px;
   outline: none;
-
+  font-size: 24px;
   :hover {
     cursor: pointer;
   }
@@ -31,13 +26,9 @@ interface Props {
 
 const EndpointButton = ({ handleClick, endpoint }: Props) => {
   const currentEndpoint = useSelector((state: AppState) => state.endpoint);
-
+  const selected = currentEndpoint === endpoint;
   return (
-    <StyledButton
-      onClick={() => handleClick(endpoint)}
-      currentEndpoint={currentEndpoint}
-      currentButton={endpoint}
-    >
+    <StyledButton onClick={() => handleClick(endpoint)} selected={selected}>
       {endpoint}
     </StyledButton>
   );
