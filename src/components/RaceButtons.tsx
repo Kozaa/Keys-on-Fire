@@ -9,7 +9,6 @@ import * as actions from "../redux/actionTypes";
 import TimerDisplay from "./TimerDisplay";
 
 const StyledWrapper = styled.div`
-  width: 20%;
   height: 100%;
   display: flex;
   flex-direction: column;
@@ -18,7 +17,7 @@ const StyledWrapper = styled.div`
 `;
 
 const StyledSpan = styled.span`
-  font-size: 4em;
+  font-size: 2em;
   color: ${({ theme }) => theme.colors.grey};
 `;
 

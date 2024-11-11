@@ -2,7 +2,7 @@ import React, { useEffect, useState } from "react";
 import styled from "styled-components";
 
 const StyledSpan = styled.span`
-  font-size: 4em;
+  font-size: 2em;
   color: ${({ theme }) => theme.colors.grey};
 `;
 

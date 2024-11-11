@@ -16,6 +16,7 @@ const StyledWrapper = styled.div`
   align-items: center;
   justify-content: center;
   gap: 24px;
+  min-width: 100%;
 `;
 
 const StyledTextWrapper = styled.div`
@@ -30,6 +31,14 @@ const StyledTextWrapper = styled.div`
 
   line-height: 1.3em;
   background-color: ${({ theme }) => theme.colors.secondary};
+`;
+
+const StyledButtonsWrapper = styled.div`
+  display: flex;
+  align-items: center;
+  justify-content: center;
+
+  gap: 36px;
 `;
 
 const StyledInput = styled.input`
@@ -68,10 +77,11 @@ interface Props {
   handleInputChange: (event: React.ChangeEvent<HTMLInputElement>) => void;
   myRef?: React.RefObject<HTMLInputElement>;
   games?: FirestoreDataType[];
+  children?: React.ReactNode;
 }
 
 const TextDisplay = React.forwardRef<HTMLInputElement, Props>(
-  ({ handleInputChange, myRef, games }, ref) => {
+  ({ handleInputChange, myRef, games, children }, ref) => {
     const dispatch = useDispatch();
     const [isFocused, setIsFocused] = useState<boolean>(false);
     const { endpoint, raceData, raceState } = useSelector(
@@ -129,15 +139,20 @@ const TextDisplay = React.forwardRef<HTMLInputElement, Props>(
             onChange={handleInputChange}
           />
         </StyledTextWrapper>
-        {raceState === RaceStateEnum.JOINED ? null : (
-          <Reroll
-            handleClick={
-              raceState === RaceStateEnum.CHOOSING
-                ? handlePracticeReroll
-                : handleRaceReroll
-            }
-          />
-        )}
+
+        <StyledButtonsWrapper>
+          {children}
+
+          {raceState === RaceStateEnum.JOINED ? null : (
+            <Reroll
+              handleClick={
+                raceState === RaceStateEnum.CHOOSING
+                  ? handlePracticeReroll
+                  : handleRaceReroll
+              }
+            />
+          )}
+        </StyledButtonsWrapper>
       </StyledWrapper>
     );
   },

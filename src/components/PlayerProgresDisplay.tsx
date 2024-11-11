@@ -6,23 +6,14 @@ import { useSelector } from "react-redux";
 import { AppState } from "../redux/store";
 
 const StyledWrapper = styled.div`
-  width: 70%;
-  height: 35vh;
-  margin: 0 auto;
+  width: 100%;
+  margin-top: 50px;
 
   display: flex;
   flex-direction: column;
   align-items: center;
   justify-content: space-around;
-  text-align: center;
-`;
-
-const StyledDiv = styled.div`
-  width: 100%;
-  display: flex;
-  align-items: center;
-  justify-content: space-around;
-  font-family: ${({ theme }) => theme.font.primary};
+  gap: 16px;
 `;
 
 interface Props {
@@ -31,7 +22,7 @@ interface Props {
 
 const PlayerProgressDisplay = ({ games }: Props) => {
   const gameID = useSelector(
-    (state: AppState) => state.raceData.connectedGameID
+    (state: AppState) => state.raceData.connectedGameID,
   );
 
   const game = games?.find((game) => game.id === gameID);
@@ -41,11 +32,6 @@ const PlayerProgressDisplay = ({ games }: Props) => {
 
   return (
     <StyledWrapper>
-      <StyledDiv>
-        <div style={{ width: "70%", textAlign: "left" }}>game ID: {gameID}</div>
-        <div style={{ width: "20%" }}>speed</div>
-        <div style={{ width: "10%" }}>errors</div>
-      </StyledDiv>
       {game &&
         playerKeys.map((player, i) => (
           <PlayerProgress
